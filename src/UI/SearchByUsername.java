@@ -1,27 +1,27 @@
 package UI;
 
-// TODO: FIX THIS
-import BusinessLogic.ItemHandler;
-
 import java.io.IOException;
 import java.util.Hashtable;
+
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import BusinessLogic.UserHandler;
+
 /**
- * Servlet implementation class ActionServlet
+ * Servlet implementation class SearchByUsername
  */
-@WebServlet("/ActionServlet")
-public class ActionServlet extends HttpServlet {
+@WebServlet("/SearchByUsername")
+public class SearchByUsername extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public ActionServlet() {
+    public SearchByUsername() {
         super();
     }
 
@@ -29,18 +29,15 @@ public class ActionServlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		
 		String str = "<html>";
-		Hashtable t = ItemHandler.listItems();
+		Hashtable t = UserHandler.searchByUsername("Peonsson");
 		int size = (int) t.get("size");
 		System.out.println("size: " + size);
-		str += "<table>";
 		for (int i = 0; i < size; i++) {
-			Hashtable item = (Hashtable) t.get("Item" + i);
-			str+="<tr><td>" + item.get("name") + "</td><td>" + item.get("quantity") + "</td><td>" + item.get("price") + "</td><td><button onClick=\"doStuff()\">Button</button></td></tr>";
+			Hashtable item = (Hashtable) t.get("User" + i);
+			str+="<tr><td>" + item.get("username") + "</td><td>" + item.get("password") + "</td><td>" + item.get("accessLevel") + "</td><td><button onClick=\"doStuff()\">Button</button></td></tr>";
 		}
-		str += "</table>";
-		response.getWriter().append(str + "</html>");		
+		response.getWriter().append(str + "</html>");	
 	}
 
 	/**
@@ -50,4 +47,5 @@ public class ActionServlet extends HttpServlet {
 		// TODO Auto-generated method stub
 		doGet(request, response);
 	}
+
 }

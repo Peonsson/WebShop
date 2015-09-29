@@ -5,9 +5,9 @@ import java.util.Hashtable;
 import java.util.Iterator;
 
 public class ItemHandler {
-	public static Hashtable searchByName() {
+	public static Hashtable searchByName(String name) {
 		
-		Collection c = Item.searchByName("Ficklampa");
+		Collection c = Item.searchByName(name);
 		Hashtable t = new Hashtable();
 		t.put("size", c.size());
 		Iterator it = c.iterator();
@@ -16,7 +16,7 @@ public class ItemHandler {
 			Item nextItem = (Item) it.next();
 			item.put("name", nextItem.getName());
 			item.put("price", nextItem.getPrice());
-			t.put("Item"+ i, item);
+			t.put("Item" + i, item);
 		}		
 		return t;
 	}

@@ -19,6 +19,10 @@ public class Item {
 	public static Collection<ItemDB> searchByName(String name) {
 		return ItemDB.searchByName(name);
 	}
+	
+	public static Collection<ItemDB> listItems() {
+		return ItemDB.listItems();
+	}
 
 	public int getItemId() {
 		return itemId;
@@ -50,9 +54,5 @@ public class Item {
 
 	public void setQuantity(int quantity) {
 		this.quantity = quantity;
-	}
-
-	public static Collection<ItemDB> listItems() {
-		return ItemDB.listItems();
 	}
 }
