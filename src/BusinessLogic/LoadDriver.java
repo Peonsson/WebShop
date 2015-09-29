@@ -25,7 +25,6 @@ public class LoadDriver {
                     
 //                    stmt.execute("INSERT INTO `WebShop`.`Access` (`Name`) VALUES ('User')");
                     
-                    
 //                    stmt.execute("INSERT INTO `WebShop`.`User`(`Username`,`Password`,`AccessLevel`)"
 //                    		+ "VALUES ('Peonsson', 'password', 1)");
 //                    
