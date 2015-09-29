@@ -7,16 +7,17 @@ public class Item {
 	private int itemId;
 	private String name;
 	private float price;
-	private static int quantity;
+	private int quantity;
 	
-	protected Item(int itemId, String name, float price) {
+	protected Item(int itemId, String name, float price, int quantity) {
 		this.itemId = itemId;
 		this.name = name;
 		this.price = price;
+		this.quantity = quantity;
 	}
 	
-	public static Collection<ItemDB> searchItems(String name) {
-		return ItemDB.searchItems(name);
+	public static Collection<ItemDB> searchByName(String name) {
+		return ItemDB.searchByName(name);
 	}
 
 	public int getItemId() {
@@ -43,13 +44,15 @@ public class Item {
 		this.price = price;
 	}
 
-	public static int getQuantity() {
+	public int getQuantity() {
 		return quantity;
 	}
 
-	public static void setQuantity(int quantity) {
-		Item.quantity = quantity;
+	public void setQuantity(int quantity) {
+		this.quantity = quantity;
 	}
-	
-	
+
+	public static Collection<ItemDB> listItems() {
+		return ItemDB.listItems();
+	}
 }

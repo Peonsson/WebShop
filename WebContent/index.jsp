@@ -20,14 +20,7 @@
 	</div>
 	<div id="main">
 			<table id="itemList">
-				<tr>
-					<td>Item</td>
-					<td>Quantity</td>
-					<td>Price</td>
-				</tr>
-				<% for (int i = 0; i < 5; i++) {
-					out.println("<tr><td>Item " + (i + 1) + "</td><td>" + i + "</td><td>" + i + "</td><td><button onClick=\"doStuff()\">Button</button></td></tr>");
-				}%>
+				<jsp:include page="/ActionServlet"/>
 			</table>		
 	</div>
 </div>
@@ -36,7 +29,7 @@
 
 <script>
 	function doStuff() {
-		document.write("hello");
+		document.write("")
 	}
 </script>
 
