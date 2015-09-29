@@ -1,0 +1,36 @@
+body {
+	background: #ebebeb
+}
+
+.container {
+	background: #f27dad;
+}
+
+#menu {
+	background: #ffffff;
+	width: 50%;
+	margin: 0 auto;
+}
+
+#rightMenu {
+	background: blue;
+}
+
+#menuButton {
+	background: #000000;
+}
+
+#logoutButton {
+	float: right;
+}
+
+#main {
+	background: #ad8e9e;
+	width: 50%;
+	margin: 0 auto;
+}
+
+#itemList {
+	background: #d34d34;
+	width: 100%;
+}
