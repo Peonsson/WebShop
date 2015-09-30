@@ -63,4 +63,18 @@ public class UserDB extends User {
 		}
 		return null;
 	}
+
+	public static void addItemToCart(int userId, int itemId, int quantity) {
+		Connection conn = DBManager.getConnection();
+		try {
+
+			Statement stmt = conn.createStatement();
+			String query = "INSERT INTO Cart (UserId, ItemId, Quantity) VALUES (" + userId + ", " + itemId + "," + quantity + ");";
+			stmt.executeQuery(query);
+
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return;
+	}
 }

@@ -30,8 +30,8 @@ public class UserHandler {
 		return myList;
 	}
 	
-	public static ArrayList<Item> addItemToCartItems() {
-		ArrayList<Item> myList = new ArrayList<Item>();
-		return myList;
+	public static void addItemToCart(int userId, int itemId, int quantity) {
+		UserDB.addItemToCart(userId, itemId, quantity);
+		return;
 	}
 }

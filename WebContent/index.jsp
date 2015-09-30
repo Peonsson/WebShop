@@ -28,12 +28,6 @@
 			</table>
 		</div>
 	</div>
-
-	<script>
-		function doStuff() {
-			document.write("")
-		}
-	</script>
 </body>
 </html>
 
