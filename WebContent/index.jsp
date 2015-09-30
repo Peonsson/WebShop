@@ -8,23 +8,27 @@
 <title>Web shop</title>
 </head>
 <body>
+<% request.getSession();
+
+if (session.getAttribute("loggedInUser") == null) {
+	response.sendRedirect("login.jsp");
+}
+
+out.println("session user id = " + session.getAttribute("loggedInUser"));
+%>
+
 	<div class="container">
 		<div id="menu">
 			<a class="menuButton" href="index.jsp">Shop</a> <a class="menuButton"
 				href="cart.jsp">Cart</a>
-			<!-- 		  <div class="rightMenu"> -->
-			<a class="logoutButton" href="logout.jsp">Logout</a>
-			<!-- 		  </div> -->
 		</div>
+		<div class="rightMenu">
+			<a class="logoutButton" href="logout.jsp">Logout</a>
+		</div>
+		
 		<div id="main">
 			<table id="itemList">
 				<jsp:include page="/ActionServlet" />
-			</table>
-		</div>
-
-		<div id="main2">
-			<table id="itemList">
-				<jsp:include page="/SearchByUsername" />
 			</table>
 		</div>
 	</div>
