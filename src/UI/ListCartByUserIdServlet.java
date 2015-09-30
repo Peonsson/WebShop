@@ -14,10 +14,10 @@ import BusinessLogic.Item;
 import BusinessLogic.UserHandler;
 
 @WebServlet("/listCartByUserIdServlet")
-public class listCartByUserIdServlet extends HttpServlet {
+public class ListCartByUserIdServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
-    public listCartByUserIdServlet() {
+    public ListCartByUserIdServlet() {
         super();
     }
 

@@ -8,23 +8,21 @@ import java.util.Iterator;
 import Database.UserDB;
 
 public class UserHandler {
-	public static Hashtable searchByUsername(String username) {
-		
-		Collection c = User.searchByUsername(username);
-		Hashtable t = new Hashtable();
-		t.put("size", c.size());
-		Iterator it = c.iterator();
-		for (int i = 0; it.hasNext(); i++) {
-			Hashtable user = new Hashtable();
-			User nextItem = (User) it.next();
-			user.put("userId", nextItem.getUserId());
-			user.put("username", nextItem.getUsername());
-			user.put("password", nextItem.getPassword());
-			user.put("accessLevel", nextItem.getAccessLevel());
-			t.put("User" + i, user);
-		}		
-		return t;
+	
+	public static User getUser(String username) {
+		return UserDB.getUser(username);
 	}
+	
+	public static int loginUser(String username, String password) {
+		
+		User user = UserDB.getUser(username);
+		username = username.toLowerCase();
+		if(username.equals(user.getUsername().toLowerCase()) && password.equals(user.getPassword()))
+			return user.getUserId();
+		else
+			return -1;
+	}
+	
 	//TODO use a Cart class instead!
 	public static ArrayList<Item> listCartByUserId(int userId) {
 		ArrayList<Item> myList = UserDB.listCartByUserId(userId);

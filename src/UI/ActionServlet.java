@@ -28,7 +28,7 @@ public class ActionServlet extends HttpServlet {
 		str += "<table>";
 		for (int i = 0; i < size; i++) {
 			Hashtable item = (Hashtable) t.get("Item" + i);
-			str+="<tr><td>" + item.get("name") + "</td><td>" + item.get("quantity") + "</td><td>" + item.get("price") + "</td><td><button onClick=\"doStuff()\">Button</button></td></tr>";
+			str+="<tr><td>" + item.get("name") + "</td><td>" + item.get("quantity") + "</td><td>" + item.get("price") + "</td><td><button id=" + item.get("itemId") + " onClick=\"doStuff()\">Button</button></td></tr>";
 		}
 		str += "</table>";
 		response.getWriter().append(str + "</html>");		

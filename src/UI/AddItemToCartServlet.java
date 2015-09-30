@@ -21,6 +21,7 @@ public class AddItemToCartServlet extends HttpServlet {
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
+		//TODO: NEED TO GET THESE FROM VIEW!
 		int userId = (int) request.getAttribute("userId");
 		int itemId = (int) request.getAttribute("itemId");
 		int quantity = (int) request.getAttribute("quantity");

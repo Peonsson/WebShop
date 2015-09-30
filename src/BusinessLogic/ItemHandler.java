@@ -33,6 +33,7 @@ public class ItemHandler {
 			item.put("name", nextItem.getName());
 			item.put("price", nextItem.getPrice());
 			item.put("quantity",nextItem.getQuantity());
+			item.put("itemId", nextItem.getItemId());
 			t.put("Item"+ i, item);
 		}		
 		return t;
