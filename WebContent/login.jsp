@@ -13,7 +13,6 @@ if (session.getAttribute("loggedInUser") != null) {
 	response.sendRedirect("index.jsp");
 }
 %>
-
 	<form method="post" action="LoginService">
 		<table border="1">
 			<tbody>
