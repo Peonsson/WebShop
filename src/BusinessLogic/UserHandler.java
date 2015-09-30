@@ -1,8 +1,11 @@
 package BusinessLogic;
 
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Hashtable;
 import java.util.Iterator;
+
+import Database.UserDB;
 
 public class UserHandler {
 	public static Hashtable searchByUsername(String username) {
@@ -20,5 +23,15 @@ public class UserHandler {
 			t.put("User" + i, user);
 		}		
 		return t;
+	}
+	//TODO use a Cart class instead!
+	public static ArrayList<Item> listCartByUserId(int userId) {
+		ArrayList<Item> myList = UserDB.listCartByUserId(userId);
+		return myList;
+	}
+	
+	public static ArrayList<Item> addItemToCartItems() {
+		ArrayList<Item> myList = new ArrayList<Item>();
+		return myList;
 	}
 }

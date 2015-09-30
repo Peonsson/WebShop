@@ -8,8 +8,6 @@
 <title>Web shop</title>
 </head>
 <body>
-
-
 	<div class="container">
 		<div id="menu">
 			<a class="menuButton" href="index.jsp">Shop</a> <a class="menuButton"
@@ -29,7 +27,6 @@
 				<jsp:include page="/SearchByUsername" />
 			</table>
 		</div>
-
 	</div>
 
 	<script>

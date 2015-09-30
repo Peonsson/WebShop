@@ -1,5 +1,6 @@
 package BusinessLogic;
 
+import java.util.ArrayList;
 import java.util.Collection;
 
 import Database.UserDB;
@@ -9,6 +10,7 @@ public class User {
 	private String username;
 	private String password;
 	private int accessLevel;
+	private ArrayList<Item> myCart;
 	
 	public User(int userId, String username, String password, int accessLevel) {
 		this.userId = userId;
@@ -51,5 +53,13 @@ public class User {
 
 	public void setAccessLevel(int accessLevel) {
 		this.accessLevel = accessLevel;
+	}
+
+	public ArrayList<Item> getMyCart() {
+		return myCart;
+	}
+
+	public void setMyCart(ArrayList<Item> myCart) {
+		this.myCart = myCart;
 	}
 }

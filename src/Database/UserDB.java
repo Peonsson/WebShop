@@ -4,8 +4,11 @@ import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Vector;
+
+import BusinessLogic.Item;
 import BusinessLogic.User;
 
 public class UserDB extends User {
@@ -32,6 +35,29 @@ public class UserDB extends User {
 				v.add(new UserDB(userId, name, password, accessLevel));
 			}
 			return v;
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return null;
+	}
+	
+	public static ArrayList<Item> listCartByUserId(int userId) {
+		
+		ArrayList<Item> myList = new ArrayList<Item>();
+		Connection conn = DBManager.getConnection();
+		try {
+
+			Statement stmt = conn.createStatement();
+			String query = "SELECT Item.Name, Item.Price, Cart.Quantity FROM Item JOIN Cart ON Cart.ItemId = Item.ItemId WHERE Cart.UserId =" + userId;
+			ResultSet rs = stmt.executeQuery(query);
+			while (rs.next()) {
+
+				String name = rs.getString("Name");
+				float price = rs.getFloat("Price");
+				int quantity = rs.getInt("Quantity");
+				myList.add(new Item(name, price, quantity));
+			}
+			return myList;
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
