@@ -17,6 +17,7 @@ public class UserHandler {
 		for (int i = 0; it.hasNext(); i++) {
 			Hashtable user = new Hashtable();
 			User nextItem = (User) it.next();
+			user.put("userId", nextItem.getUserId());
 			user.put("username", nextItem.getUsername());
 			user.put("password", nextItem.getPassword());
 			user.put("accessLevel", nextItem.getAccessLevel());
