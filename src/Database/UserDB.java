@@ -74,7 +74,6 @@ public class UserDB extends User {
 			Statement stmt = conn.createStatement();
 			String query = "INSERT INTO Cart (UserId, ItemId, Quantity) VALUES (" + userId + ", " + itemId + "," + quantity + ");";
 			stmt.execute(query);
-//			stmt.executeQuery(query);
 
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -88,6 +87,26 @@ public class UserDB extends User {
 
 			Statement stmt = conn.createStatement();
 			String query = "SELECT * FROM User WHERE Username = '" + username + "'";
+			ResultSet rs = stmt.executeQuery(query);
+			while (rs.next()) {
+				int userId = rs.getInt("UserId");
+				String Username = rs.getString("Username");
+				String password = rs.getString("Password");
+				int accessLevel = rs.getInt("AccessLevel");
+				return new User(userId, Username, password, accessLevel);
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return null;
+	}
+	
+	public static User getUser(int UserId) {
+		Connection conn = DBManager.getConnection();
+		try {
+
+			Statement stmt = conn.createStatement();
+			String query = "SELECT * FROM User WHERE UserId = '" + UserId + "'";
 			ResultSet rs = stmt.executeQuery(query);
 			while (rs.next()) {
 				int userId = rs.getInt("UserId");

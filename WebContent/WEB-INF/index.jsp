@@ -42,12 +42,14 @@
 					<td>Name</td>
 					<td>Quantity</td>
 					<td>Price</td>
+					<td>Category</td>
 				</tr>
 				<c:forEach var="item" items="${items}">
 					<tr>
 						<td>${item.name}</td>
 						<td>${item.quantity}</td>
 						<td>${item.price}</td>
+						<td>${item.category}</td>
 						<td><form method="post"
 								action="AddItemToCart?loggedInUser=2&itemId=${item.itemId}&quantity=5">
 								<button>add</button>
