@@ -52,4 +52,12 @@ public class ItemHandler {
 		}
 		return -1;
 	}
+	
+	public static Item getItem(String name) {
+		return ItemDB.getItem(name);
+	}
+	
+	public static Item getItem(int itemId) {
+		return ItemDB.getItem(itemId);
+	}
 }

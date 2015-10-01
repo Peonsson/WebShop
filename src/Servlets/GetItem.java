@@ -9,30 +9,20 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import BusinessLogic.Item;
 import BusinessLogic.ItemHandler;
 
-/**
- * Servlet implementation class ItemEdit
- */
-//@WebServlet("/ItemEdit")
-public class GetItemInfo extends HttpServlet {
+@WebServlet("/GetItem")
+public class GetItem extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
-    /**
-     * @see HttpServlet#HttpServlet()
-     */
-    public GetItemInfo() {
+    public GetItem() {
         super();
-        // TODO Auto-generated constructor stub
     }
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		System.out.println("getting");
-		
-		// REMOVE LATER
-		Item item = new Item(1, "Ficklampa", 25f, 100);
-		request.setAttribute("item", item);
-		request.getRequestDispatcher("/Pages/itemedit.jsp").forward(request, response);;
+//    	request.getParameter("itemId"); //TODO: in production
+//    	System.out.println("ItemHandler.getItem(1).getName() == " + ItemHandler.getItem(1).getName()); //TODO: testcode remove if u want
+    	System.out.println("ItemHandler.getItem(1).getName() == " + ItemHandler.getItem("Ficklampa").getName()); //TODO: testcode remove if u want
+//    	request.getParameter("name");//TODO: in production
 	}
 }

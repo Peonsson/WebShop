@@ -38,6 +38,9 @@ public class Item {
 		this.category = category;
 	}
 
+	public Item() {
+	}
+
 	public static Collection searchByName(String name) {
 		return ItemDB.searchByName(name);
 	}
