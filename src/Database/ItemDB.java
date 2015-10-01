@@ -87,4 +87,34 @@ public class ItemDB extends Item {
 		}
 		return;
 	}
+	
+	public static void removeItemFromShop(int itemId) {
+		
+		Connection conn = DBManager.getConnection();
+		
+		try {
+			Statement stmt = conn.createStatement();
+			String query = "DELETE FROM Item WHERE ItemId = " + itemId;
+			stmt.executeQuery(query);
+			return;
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return;
+	}
+	
+	public static void removeItemFromShop(String name) {
+		
+		Connection conn = DBManager.getConnection();
+		
+		try {
+			Statement stmt = conn.createStatement();
+			String query = "DELETE FROM Item WHERE Name = " + name;
+			stmt.executeQuery(query);
+			return;
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return;
+	}
 }

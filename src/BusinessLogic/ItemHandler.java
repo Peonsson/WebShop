@@ -44,7 +44,8 @@ public class ItemHandler {
 	
 	public static int addItemToShop(int userId, String name, float price, int quantity, String category) {
 		
-		if(UserHandler.getUser(userId).getAccessLevel() > 1) {
+		if(UserHandler.getUser(userId).getAccessLevel() > 1) { //If you are lager personal or administrator you may continue, otherwise return -1
+			
 			Item item = new Item(name, price, quantity, category);
 			ItemDB.addItemToShop(item);
 			return 0;
