@@ -16,7 +16,7 @@
 				<td>${item.name}</td>
 				<td>${item.quantity}</td>
 				<td>${item.price}</td>
-				<td><form method="post"
+				<td><form method="get"
 						action="itemedit?itemId=${item.itemId}">
 						<button>Edit</button>
 					</form>

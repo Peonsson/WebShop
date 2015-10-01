@@ -9,6 +9,9 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import BusinessLogic.Item;
+import BusinessLogic.ItemHandler;
+
 /**
  * Servlet implementation class ItemEdit
  */
@@ -27,5 +30,9 @@ public class GetItemInfo extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		System.out.println("getting");
 		
+		// REMOVE LATER
+		Item item = new Item(1, "Ficklampa", 25f, 100);
+		request.setAttribute("item", item);
+		request.getRequestDispatcher("/Pages/itemedit.jsp").forward(request, response);;
 	}
 }
