@@ -60,4 +60,8 @@ public class ItemHandler {
 	public static Item getItem(int itemId) {
 		return ItemDB.getItem(itemId);
 	}
+	
+	public static int modifyItem(Item item) {
+		return ItemDB.modifyItem(item);
+	}
 }

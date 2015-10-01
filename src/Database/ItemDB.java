@@ -186,4 +186,29 @@ public class ItemDB extends Item {
 		}
 		return null;
 	}
+
+	public static int modifyItem(Item item) {
+		
+		if(item == null)
+			return -1;
+		
+		String category = item.getCategory();
+		int itemId = item.getItemId();
+		String name = item.getName();
+		float price = item.getPrice();
+		int quantity = item.getQuantity();
+
+		Connection conn = DBManager.getConnection();
+		try {
+
+			Statement stmt = conn.createStatement();
+			String query = "UPDATE Item SET ItemId = " + itemId + ", name = '" + name + "' WHERE CustomerName='Alfreds Futterkiste';";
+			ResultSet rs = stmt.executeQuery(query);
+
+			return -1;
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return 0;
+	}
 }
