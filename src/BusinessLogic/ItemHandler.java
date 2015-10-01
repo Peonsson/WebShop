@@ -5,6 +5,7 @@ import java.util.Collection;
 import java.util.Hashtable;
 import java.util.Iterator;
 
+import Database.DBManager;
 import Database.ItemDB;
 
 public class ItemHandler {
@@ -39,5 +40,15 @@ public class ItemHandler {
 		}
 		
 		return items;
+	}
+	
+	public static int addItemToShop(String name, float price, int quantity, String category) {
+		
+		if(UserHandler.getUser("peonsson").getAccessLevel() > 1) {
+			Item item = new Item(name, price, quantity, category);
+			ItemDB.addItemToShop(item);
+			return 0;
+		}
+		return -1;
 	}
 }

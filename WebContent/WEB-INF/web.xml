@@ -14,8 +14,8 @@
     <servlet-class>Servlets.ListCart</servlet-class>
   </servlet>
   <servlet>
-	<servlet-name>AddItemToCart</servlet-name>
-	<servlet-class>Servlets.AddItemToCart</servlet-class>
+    <servlet-name>AddItemToCart</servlet-name>
+    <servlet-class>Servlets.AddItemToCart</servlet-class>
   </servlet>
   <servlet>
     <servlet-name>LoginPage</servlet-name>
@@ -34,8 +34,8 @@
     <url-pattern>/cart</url-pattern>
   </servlet-mapping>
   <servlet-mapping>
-  	<servlet-name>AddItemToCart</servlet-name>
-  	<url-pattern>/AddItemToCart</url-pattern>
+    <servlet-name>AddItemToCart</servlet-name>
+    <url-pattern>/AddItemToCart</url-pattern>
   </servlet-mapping>
   <servlet-mapping>
     <servlet-name>LoginPage</servlet-name>

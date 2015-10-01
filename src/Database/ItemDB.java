@@ -68,4 +68,24 @@ public class ItemDB extends Item {
 		}
 		return null;
 	}
+	
+	public static void addItemToShop(Item item) {
+		
+		Connection conn = DBManager.getConnection();
+		int itemId = item.getItemId();
+		String name = item.getName();
+		float price = item.getPrice();
+		int quantity = item.getQuantity();
+		String category = item.getCategory();
+		
+		try {
+			Statement stmt = conn.createStatement();
+			String query = "INSERT INTO Item (Name, Price, Quantity, Category) VALUES (" + name + ", " + price + "," + quantity + ", " + category + ");";
+			stmt.executeQuery(query);
+			return;
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return;
+	}
 }
