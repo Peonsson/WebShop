@@ -1,9 +1,6 @@
 package BusinessLogic;
 
 import java.util.ArrayList;
-import java.util.Collection;
-import java.util.Hashtable;
-import java.util.Iterator;
 
 import Database.UserDB;
 
