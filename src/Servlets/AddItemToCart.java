@@ -29,6 +29,6 @@ public class AddItemToCart extends HttpServlet {
 		int quantity = Integer.parseInt(request.getParameter("quantity"));
 		
 		UserHandler.addItemToCart(userId, itemId, quantity);
-		response.getWriter().append("HELLO");
+		response.sendRedirect("/WebShop/");
 	}
 }

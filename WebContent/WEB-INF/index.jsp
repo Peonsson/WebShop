@@ -51,7 +51,7 @@
 						<td>${item.price}</td>
 						<td>${item.category}</td>
 						<td><form method="post"
-								action="AddItemToCart?loggedInUser=2&itemId=${item.itemId}&quantity=5">
+								action="AddItemToCart?loggedInUser=<% out.print(session.getAttribute("loggedInUser")); %>&itemId=${item.itemId}&quantity=5">
 								<button>add</button>
 							</form>
 					</tr>
