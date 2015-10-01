@@ -12,24 +12,14 @@ import javax.servlet.http.HttpServletResponse;
 import BusinessLogic.Item;
 import BusinessLogic.ItemHandler;
 
-/**
- * Servlet implementation class ListEditItems
- */
 //@WebServlet("/edititems")
 public class ListEditItems extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
-    /**
-     * @see HttpServlet#HttpServlet()
-     */
     public ListEditItems() {
         super();
-        // TODO Auto-generated constructor stub
     }
 
-	/**
-	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
-	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		List<Item> items = ItemHandler.listItems();
 		System.out.println("ListEditItems AL: " + items.toString());
@@ -38,12 +28,7 @@ public class ListEditItems extends HttpServlet {
 		request.getRequestDispatcher("/Pages/ItemAdministrator.jsp").forward(request, response);
 	}
 
-	/**
-	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
-	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
 		doGet(request, response);
 	}
-
 }

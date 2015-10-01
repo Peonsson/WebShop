@@ -63,7 +63,8 @@ public class ItemHandler {
 	
 	public static int modifyItem(int userId, String name, int quantity, float price, String category) {
 		
-		if(UserHandler.getUser(userId).getAccessLevel() > 1) {	//if we are lager personnel or administrators we may continue
+		if(UserHandler.getUser(userId).getAccessLevel() > 1) {	//if we are lager personnel or administrators you may continue, otherwise return -1
+			
 			Item item = new Item(name, price, quantity, category);
 			return ItemDB.modifyItem(item);
 		}
