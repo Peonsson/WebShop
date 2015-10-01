@@ -13,6 +13,10 @@ public class UserHandler {
 		return UserDB.getUser(username);
 	}
 	
+	public static User getUser(int userId) {
+		return UserDB.getUser(userId);
+	}
+	
 	public static int loginUser(String username, String password) {
 		
 		User user = UserDB.getUser(username);
