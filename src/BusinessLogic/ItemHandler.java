@@ -28,7 +28,6 @@ public class ItemHandler {
 		Collection<ItemDB> c = Item.listItems();
 		ArrayList<Item> items = new ArrayList<>();
 		
-<<<<<<< HEAD
 		for (Item item : c) {
 			int itemId = item.getItemId();
 			String name = item.getName();
@@ -39,36 +38,5 @@ public class ItemHandler {
 		}
 		
 		return items;
-		
-		
-//		Collection c = Item.listItems();
-//		Hashtable t = new Hashtable();
-//		t.put("size", c.size());
-//		Iterator it = c.iterator();
-//		for (int i = 0; it.hasNext(); i++) {
-//			Hashtable item = new Hashtable();
-//			Item nextItem = (Item) it.next();
-//			item.put("name", nextItem.getName());
-//			item.put("price", nextItem.getPrice());
-//			item.put("quantity",nextItem.getQuantity());
-//			t.put("Item"+ i, item);
-//		}		
-//		return t;
-=======
-		Collection c = Item.listItems();
-		Hashtable t = new Hashtable();
-		t.put("size", c.size());
-		Iterator it = c.iterator();
-		for (int i = 0; it.hasNext(); i++) {
-			Hashtable item = new Hashtable();
-			Item nextItem = (Item) it.next();
-			item.put("name", nextItem.getName());
-			item.put("price", nextItem.getPrice());
-			item.put("quantity",nextItem.getQuantity());
-			item.put("itemId", nextItem.getItemId());
-			t.put("Item"+ i, item);
-		}		
-		return t;
->>>>>>> branch 'master' of https://github.com/Peonsson/WebShop.git
 	}
 }
