@@ -30,8 +30,8 @@
     <servlet-class>Servlets.ListEditItems</servlet-class>
   </servlet>
   <servlet>
-    <servlet-name>GetItemInfo</servlet-name>
-    <servlet-class>Servlets.GetItemInfo</servlet-class>
+    <servlet-name>GetItem</servlet-name>
+    <servlet-class>Servlets.GetItem</servlet-class>
   </servlet>
   <servlet>
     <servlet-name>Logout</servlet-name>
@@ -55,11 +55,11 @@
   </servlet-mapping>
   <servlet-mapping>
     <servlet-name>ListEditItems</servlet-name>
-    <url-pattern>/itemadmin</url-pattern>
+    <url-pattern>/ItemAdministrator</url-pattern>
   </servlet-mapping>
   <servlet-mapping>
-    <servlet-name>GetItemInfo</servlet-name>
-    <url-pattern>/itemedit</url-pattern>
+    <servlet-name>GetItem</servlet-name>
+    <url-pattern>/ItemEditor</url-pattern>
   </servlet-mapping>
   <servlet-mapping>
     <servlet-name>Logout</servlet-name>
