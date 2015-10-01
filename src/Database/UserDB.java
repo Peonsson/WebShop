@@ -73,7 +73,8 @@ public class UserDB extends User {
 
 			Statement stmt = conn.createStatement();
 			String query = "INSERT INTO Cart (UserId, ItemId, Quantity) VALUES (" + userId + ", " + itemId + "," + quantity + ");";
-			stmt.executeQuery(query);
+			stmt.execute(query);
+//			stmt.executeQuery(query);
 
 		} catch (SQLException e) {
 			e.printStackTrace();

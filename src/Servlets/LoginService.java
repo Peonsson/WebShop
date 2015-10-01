@@ -27,10 +27,17 @@ public class LoginService extends HttpServlet {
 
 		String username = request.getParameter("username");
 		String password = request.getParameter("password");
-		int userId = UserHandler.loginUser(username, password);
 
-		HttpSession session = request.getSession(true);
-		session.setAttribute("loggedInUser", userId);
-		response.sendRedirect("/WebShop/");
+		if (!username.isEmpty() && !password.isEmpty()) {
+			int userId = UserHandler.loginUser(username, password);
+
+			if (userId != -1) {
+				HttpSession session = request.getSession(true);
+				session.setAttribute("loggedInUser", userId);
+				response.sendRedirect("/WebShop/");
+			} else
+				response.sendRedirect("/WebShop/login");
+		} else
+			response.sendRedirect("/WebShop/login");
 	}
 }

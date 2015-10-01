@@ -9,18 +9,22 @@
 <title>Web shop</title>
 </head>
 <body>
-	<%
-		request.getSession();
-		out.println(
-			"session user id = " + session.getAttribute("loggedInUser"));
-	%>
+
+	<%-- <% request.getSession(); --%>
+	<%--  	out.println("session user id = " + session.getAttribute("loggedInUser")); %> --%>
 
 	<div class="container">
 		<div id="menu">
-			<a class="menuButton" href="/WebShop/">Shop</a>			
-			<a class="menuButton" href="/WebShop/cart?userId=<%out.print(session.getAttribute("loggedInUser"));%>">Cart</a>
-		</div>
-		<div class="rightMenu">
+			<a class="menuButton" href="/WebShop/">Shop</a>
+			<%
+				if (session.getAttribute("loggedInUser") != null) {
+			%>
+			<a class="menuButton"
+				href="/WebShop/cart?userId=<%out.print(session.getAttribute("loggedInUser"));%>">Cart</a>
+			<%
+				}
+			%>
+
 			<%
 				if (session.getAttribute("loggedInUser") != null) {
 			%><a class="logoutButton" href="/WebShop/logout">Logout</a>
@@ -44,6 +48,10 @@
 						<td>${item.name}</td>
 						<td>${item.quantity}</td>
 						<td>${item.price}</td>
+						<td><form method="post"
+								action="AddItemToCart?loggedInUser=2&itemId=${item.itemId}&quantity=5">
+								<button>add</button>
+							</form>
 					</tr>
 				</c:forEach>
 			</table>
@@ -51,5 +59,3 @@
 	</div>
 </body>
 </html>
-
-

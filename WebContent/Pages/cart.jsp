@@ -9,6 +9,22 @@
 <title>Cart</title>
 </head>
 <body>
+		<div id="menu">
+			<a class="menuButton" href="/WebShop/">Shop</a>
+			<% if (session.getAttribute("loggedInUser") != null) { %>
+			<a class="menuButton" href="/WebShop/cart?userId=<%out.print(session.getAttribute("loggedInUser"));%>">Cart</a>
+			<% } %>
+
+			<%
+				if (session.getAttribute("loggedInUser") != null) {
+			%><a class="logoutButton" href="/WebShop/logout">Logout</a>
+			<%
+				} else {
+			%><a class="logoutButton" href="/WebShop/login">Login</a>
+			<%
+				}
+			%>
+		</div>
 	<table id="itemList">
 		<tr>
 			<td>Name</td>
