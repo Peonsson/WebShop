@@ -20,9 +20,13 @@ public class AddItemToShop extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
 		int userId = Integer.parseInt(request.getParameter("loggedInUser"));
-		ItemHandler.addItemToShop(null, userId, userId, null);
-		response.getWriter().append("Added item to shop!"); //TODO: change this
+		String name = request.getParameter("name");
+		int quantity = Integer.parseInt(request.getParameter("quantity"));
+		float price = Float.parseFloat(request.getParameter("price"));
+		String category = request.getParameter("category");
 		
+		ItemHandler.addItemToShop(userId, name, price, quantity, category);
+		response.getWriter().append("Added item to shop!"); //TODO: change this
 	}
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {

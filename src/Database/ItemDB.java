@@ -51,14 +51,14 @@ public class ItemDB extends Item {
 		try {
 			
 			Statement stmt = conn.createStatement();
-			String query = "SELECT * FROM Item";
+			String query = "SELECT Item.ItemId, Item.Category, Item.Name, Item.Price, Item.Quantity, Category.Name FROM Item JOIN Category ON Category.CategoryId = Item.Category";
 			ResultSet rs = stmt.executeQuery(query);
 			while (rs.next()) {
 				int ItemId = rs.getInt("ItemId");
-				String Name = rs.getString("Name");
+				String Name = rs.getString("Item.Name");
 				int Quantity = rs.getInt("Quantity");
 				float Price = rs.getFloat("Price");
-				String Category = rs.getString("Category");
+				String Category = rs.getString("Category.Name");
 				v.add(new ItemDB(ItemId, Name, Price, Quantity, Category));
 			}
 			
@@ -72,7 +72,6 @@ public class ItemDB extends Item {
 	public static void addItemToShop(Item item) {
 		
 		Connection conn = DBManager.getConnection();
-		int itemId = item.getItemId();
 		String name = item.getName();
 		float price = item.getPrice();
 		int quantity = item.getQuantity();
