@@ -21,7 +21,7 @@
 				<option value="phone">Phone</option>
 				<option value="tool">Tool</option>
 				<option value="vehicle">Vehicle</option>
-			</select> Remove <input type="checkbox">
+			</select>Remove<input type="checkbox">
 			<br />
 			<button>Save changes</button>
 	</form>
