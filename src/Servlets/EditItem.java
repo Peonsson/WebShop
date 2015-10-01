@@ -7,22 +7,26 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-/**
- * Servlet implementation class EditItem
- */
+import BusinessLogic.Item;
+import BusinessLogic.ItemHandler;
+
 //@WebServlet("/EditItem")
 public class EditItem extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
-    /**
-     * @see HttpServlet#HttpServlet()
-     */
     public EditItem() {
         super();
-        // TODO Auto-generated constructor stub
     }
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		
+		int userId = Integer.parseInt(request.getParameter("loggedInUser"));
+		String name = request.getParameter("name");
+		int quantity = Integer.parseInt(request.getParameter("quantity"));
+		float price = Float.parseFloat(request.getParameter("price"));
+		String category = request.getParameter("category");
+		
+		ItemHandler.modifyItem(userId, name, quantity, price, category);
 		
 	}
 }

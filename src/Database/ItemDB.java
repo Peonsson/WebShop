@@ -192,8 +192,8 @@ public class ItemDB extends Item {
 		if(item == null)
 			return -1;
 		
-		String category = item.getCategory();
 		int itemId = item.getItemId();
+		String category = item.getCategory();
 		String name = item.getName();
 		float price = item.getPrice();
 		int quantity = item.getQuantity();
@@ -202,13 +202,17 @@ public class ItemDB extends Item {
 		try {
 
 			Statement stmt = conn.createStatement();
-			String query = "UPDATE Item SET ItemId = " + itemId + ", name = '" + name + "' WHERE CustomerName='Alfreds Futterkiste';";
-			ResultSet rs = stmt.executeQuery(query);
-
-			return -1;
+			String query = "UPDATE Item SET " +
+					"Name = '" + name + "', " +
+					"Price = " + price + ", " +
+					"Quantity = " + quantity + ", " +
+					"WHERE ItemId = " + itemId;
+			
+			stmt.executeQuery(query);
+			return 0;
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
-		return 0;
+		return -1;
 	}
 }
