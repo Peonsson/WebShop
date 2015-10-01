@@ -42,9 +42,9 @@ public class ItemHandler {
 		return items;
 	}
 	
-	public static int addItemToShop(String name, float price, int quantity, String category) {
+	public static int addItemToShop(int userId, String name, float price, int quantity, String category) {
 		
-		if(UserHandler.getUser("peonsson").getAccessLevel() > 1) {
+		if(UserHandler.getUser(userId).getAccessLevel() > 1) {
 			Item item = new Item(name, price, quantity, category);
 			ItemDB.addItemToShop(item);
 			return 0;
