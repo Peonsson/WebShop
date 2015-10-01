@@ -117,4 +117,60 @@ public class ItemDB extends Item {
 		}
 		return;
 	}
+	
+	public static Item getItem(String name) {
+		
+		Connection conn = DBManager.getConnection();
+		Item item = new Item();
+		try {
+			Statement stmt = conn.createStatement();
+			String query = "SELECT Item.ItemId, Item.Category, Item.Name, Item.Price, Item.Quantity, Category.Name FROM Item JOIN Category ON Category.CategoryId = Item.Category WHERE Name = " + name;
+			ResultSet rs = stmt.executeQuery(query);
+			
+			int itemId = rs.getInt("ItemId");
+			String Name = rs.getString("Name");
+			float price = rs.getFloat("Price");
+			int quantity = rs.getInt("Quantity");
+			String category = rs.getString("Category.Name");
+			
+			item.setItemId(itemId);
+			item.setName(Name);
+			item.setPrice(price);
+			item.setQuantity(quantity);
+			item.setCategory(category);
+			
+			return item;
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return null;
+	}
+	
+	public static Item getItem(int ItemId) {
+		
+		Connection conn = DBManager.getConnection();
+		Item item = new Item();
+		try {
+			Statement stmt = conn.createStatement();
+			String query = "SELECT Item.ItemId, Item.Category, Item.Name, Item.Price, Item.Quantity, Category.Name FROM Item JOIN Category ON Category.CategoryId = Item.Category WHERE ItemId = " + ItemId;
+			ResultSet rs = stmt.executeQuery(query);
+			
+			int itemId = rs.getInt("ItemId");
+			String Name = rs.getString("Name");
+			float price = rs.getFloat("Price");
+			int quantity = rs.getInt("Quantity");
+			String category = rs.getString("Category.Name");
+			
+			item.setItemId(itemId);
+			item.setName(Name);
+			item.setPrice(price);
+			item.setQuantity(quantity);
+			item.setCategory(category);
+			
+			return item;
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return null;
+	}
 }
