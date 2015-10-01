@@ -16,10 +16,12 @@
 				<td>${item.name}</td>
 				<td>${item.quantity}</td>
 				<td>${item.price}</td>
-				<td><form method="post"
-						action="itemedit?itemId=${item.itemId}">
+				<td>${item.itemId}</td>
+				<td>
+					<form method="post" action="ItemEditor?itemId=${item.itemId}">
 						<button>Edit</button>
 					</form>
+				</td>
 			</tr>
 		</c:forEach>
 	</table>

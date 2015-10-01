@@ -35,7 +35,7 @@ public class ListEditItems extends HttpServlet {
 		System.out.println("ListEditItems AL: " + items.toString());
 		
 		request.setAttribute("items", items);
-		request.getRequestDispatcher("/Pages/itemeditor.jsp").forward(request, response);
+		request.getRequestDispatcher("/Pages/ItemAdministrator.jsp").forward(request, response);
 	}
 
 	/**
