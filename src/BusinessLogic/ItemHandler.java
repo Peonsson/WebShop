@@ -1,8 +1,11 @@
 package BusinessLogic;
 
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Hashtable;
 import java.util.Iterator;
+
+import Database.ItemDB;
 
 public class ItemHandler {
 	public static Hashtable searchByName(String name) {
@@ -21,20 +24,34 @@ public class ItemHandler {
 		return t;
 	}
 	
-	public static Hashtable listItems() {
+	public static ArrayList<Item> listItems() {
+		Collection<ItemDB> c = Item.listItems();
+		ArrayList<Item> items = new ArrayList<>();
 		
-		Collection c = Item.listItems();
-		Hashtable t = new Hashtable();
-		t.put("size", c.size());
-		Iterator it = c.iterator();
-		for (int i = 0; it.hasNext(); i++) {
-			Hashtable item = new Hashtable();
-			Item nextItem = (Item) it.next();
-			item.put("name", nextItem.getName());
-			item.put("price", nextItem.getPrice());
-			item.put("quantity",nextItem.getQuantity());
-			t.put("Item"+ i, item);
-		}		
-		return t;
+		for (Item item : c) {
+			int itemId = item.getItemId();
+			String name = item.getName();
+			float price = item.getPrice();
+			int quantity = item.getQuantity();
+			
+			items.add(new Item(itemId, name, price, quantity));
+		}
+		
+		return items;
+		
+		
+//		Collection c = Item.listItems();
+//		Hashtable t = new Hashtable();
+//		t.put("size", c.size());
+//		Iterator it = c.iterator();
+//		for (int i = 0; it.hasNext(); i++) {
+//			Hashtable item = new Hashtable();
+//			Item nextItem = (Item) it.next();
+//			item.put("name", nextItem.getName());
+//			item.put("price", nextItem.getPrice());
+//			item.put("quantity",nextItem.getQuantity());
+//			t.put("Item"+ i, item);
+//		}		
+//		return t;
 	}
 }

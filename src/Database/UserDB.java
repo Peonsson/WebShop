@@ -46,19 +46,22 @@ public class UserDB extends User {
 		ArrayList<Item> myList = new ArrayList<Item>();
 		Connection conn = DBManager.getConnection();
 		try {
-
 			Statement stmt = conn.createStatement();
-			String query = "SELECT Item.Name, Item.Price, Cart.Quantity FROM Item JOIN Cart ON Cart.ItemId = Item.ItemId WHERE Cart.UserId =" + userId;
+			String query = "SELECT Item.ItemId, Item.Name, Item.Price, Cart.Quantity FROM Item JOIN Cart ON Cart.ItemId = Item.ItemId WHERE Cart.UserId =" + userId;
 			ResultSet rs = stmt.executeQuery(query);
 			while (rs.next()) {
-
+				int itemId = rs.getInt("ItemId");
 				String name = rs.getString("Name");
 				float price = rs.getFloat("Price");
 				int quantity = rs.getInt("Quantity");
-				myList.add(new Item(name, price, quantity));
+				myList.add(new Item(itemId, name, price, quantity));
 			}
+			
+			System.out.println("UserDB ArrayList : " + myList.toString());
+			
 			return myList;
-		} catch (SQLException e) {
+		}
+		catch (SQLException e) {
 			e.printStackTrace();
 		}
 		return null;

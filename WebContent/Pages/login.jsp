@@ -10,7 +10,7 @@
 
 <%
 if (session.getAttribute("loggedInUser") != null) {
-	response.sendRedirect("index.jsp");
+	response.sendRedirect("/WebShop/browse");
 }
 %>
 	<form method="post" action="LoginService">

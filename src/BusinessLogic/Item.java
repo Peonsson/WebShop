@@ -22,7 +22,7 @@ public class Item {
 		this.quantity = quantity;
 	}
 
-	public static Collection<ItemDB> searchByName(String name) {
+	public static Collection searchByName(String name) {
 		return ItemDB.searchByName(name);
 	}
 	
@@ -60,5 +60,9 @@ public class Item {
 
 	public void setQuantity(int quantity) {
 		this.quantity = quantity;
+	}
+	
+	public String toString() {
+		return "(ItemId : " + itemId + ", Name: " + name + ", Price: " + price + ", Quantity: " + quantity + ")";
 	}
 }

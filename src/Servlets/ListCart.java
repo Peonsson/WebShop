@@ -1,37 +1,34 @@
-package UI;
+package Servlets;
 
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.ArrayList;
+import java.util.List;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.websocket.Session;
 
 import BusinessLogic.Item;
+import BusinessLogic.ItemHandler;
 import BusinessLogic.UserHandler;
 
 @WebServlet("/listCartByUserIdServlet")
-public class listCartByUserIdServlet extends HttpServlet {
+public class ListCart extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
-    public listCartByUserIdServlet() {
+    public ListCart() {
         super();
     }
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		
-		PrintWriter out = response.getWriter();
-		String returnValue = "";
-		ArrayList<Item> myList = UserHandler.listCartByUserId(2);
-		
-		for (int i = 0; i < myList.size(); i++) {
-			returnValue += "name: " + myList.get(i).getName() + " price: " + myList.get(i).getPrice() + " quantity: " + myList.get(i).getQuantity() + "\n";
-		}
-		
-		out.println(returnValue);
+		int userId = Integer.parseInt(request.getParameter("userId"));
+		List<Item> items = UserHandler.listCartByUserId(userId);		
+		request.setAttribute("items", items);
+      request.getRequestDispatcher("/Pages/cart.jsp").forward(request, response);
 	}
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {

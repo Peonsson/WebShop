@@ -1,5 +1,6 @@
 package Database;
 
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Vector;
 
@@ -39,9 +40,10 @@ public class ItemDB extends Item {
 		return null;
 	}
 
-	public static Collection<ItemDB> listItems() {
+	public static Collection listItems() {
 		
-		Vector<ItemDB> v = new Vector<>();
+//		Vector<ItemDB> v = new Vector<>();
+		ArrayList<ItemDB> v = new ArrayList<>();
 		Connection conn = DBManager.getConnection();
 		try {
 			
@@ -55,6 +57,7 @@ public class ItemDB extends Item {
 				float Price = rs.getFloat("Price");
 				v.add(new ItemDB(ItemId, Name, Price, Quantity));
 			}
+			
 			return v;
 		} catch (SQLException e) {
 			e.printStackTrace();

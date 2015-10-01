@@ -27,7 +27,12 @@ public class UserHandler {
 	}
 	//TODO use a Cart class instead!
 	public static ArrayList<Item> listCartByUserId(int userId) {
+		System.out.println("UserHandler userId : " + userId);
+		
 		ArrayList<Item> myList = UserDB.listCartByUserId(userId);
+		
+		System.out.println("UserHandler ArrayList : " + myList.toString());
+		
 		return myList;
 	}
 	

@@ -1,4 +1,4 @@
-package UI;
+package Servlets;
 
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -61,19 +61,19 @@ public class LoginService extends HttpServlet {
 					
 					HttpSession session = request.getSession(true);
 					session.setAttribute("loggedInUser", item.get("userId"));
-					response.sendRedirect("index.jsp");
+					response.sendRedirect("/WebShop/");
 				}
 				else {
-					response.sendRedirect("login.jsp");
+					response.sendRedirect("/WebShop/login");
 				}
 			}
 			else {
 				out.println("User doesn't exist.");
-				response.sendRedirect("login.jsp");
+				response.sendRedirect("/WebShop/login");
 			}
 		}
 		else {
-			response.sendRedirect("login.jsp");
+			response.sendRedirect("/WebShop/login");
 		}
 	}
 }
