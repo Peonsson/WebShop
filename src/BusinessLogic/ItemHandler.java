@@ -61,10 +61,10 @@ public class ItemHandler {
 		return ItemDB.getItem(itemId);
 	}
 	
-	public static int modifyItem(int userId, String name, int quantity, float price, String category) {
+	public static int modifyItem(int userId, int itemId, String name, int quantity, float price, String category) {
 		
 		if(UserHandler.getUser(userId).getAccessLevel() > 1) {	//if we are lager personnel or administrators we may continue
-			Item item = new Item(name, price, quantity, category);
+			Item item = new Item(itemId, name, price, quantity, category);
 			return ItemDB.modifyItem(item);
 		}
 		return -1;

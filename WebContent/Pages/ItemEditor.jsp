@@ -9,20 +9,24 @@
 <title>Insert title here</title>
 </head>
 <body>
+	<% out.print(session.getAttribute("loggedInUser")); %>
+
 	<a href="/WebShop/ItemAdministrator">Go back</a>
-	<form>
-			Name: <input type="text" value="${item.name}">
-			Price: <input type="text" value="${item.price}">
-			Quantity: <input type="text" value="${item.quantity}">
+	<form method="post" action="EditItem">
+			Name: <input type="text" name="name" value="${item.name}">
+			Price: <input type="text" name="price" value="${item.price}">
+			Quantity: <input type="text" name="quantity" value="${item.quantity}">
 			Category
-			<select>
+			<select name="category">
 				<option value="computer">Computer</option>
 				<option value="food">Food</option>
 				<option value="phone">Phone</option>
 				<option value="tool">Tool</option>
 				<option value="vehicle">Vehicle</option>
-			</select>Remove<input type="checkbox">
+			</select>Remove<input name="remove" type="checkbox">
 			<br />
+			<input type="hidden" name="itemId" value="${item.itemId}"/>
+			<input type="hidden" name="loggedInUser" value="<% out.print(session.getAttribute("loggedInUser")) ;%>"/>
 			<button>Save changes</button>
 	</form>
 </body>
