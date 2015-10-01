@@ -9,7 +9,7 @@
 <title>Insert title here</title>
 </head>
 <body>
-	<a href="/WebShop/itemadmin">Go back</a>
+	<a href="/WebShop/ItemAdministrator">Go back</a>
 	<form>
 			Name: <input type="text" value="${item.name}">
 			Price: <input type="text" value="${item.price}">
