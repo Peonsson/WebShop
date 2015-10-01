@@ -33,8 +33,9 @@ public class ItemHandler {
 			String name = item.getName();
 			float price = item.getPrice();
 			int quantity = item.getQuantity();
+			String category = item.getCategory();
 			
-			items.add(new Item(itemId, name, price, quantity));
+			items.add(new Item(itemId, name, price, quantity, category));
 		}
 		
 		return items;

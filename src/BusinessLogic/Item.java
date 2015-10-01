@@ -8,7 +8,16 @@ public class Item {
 	private String name;
 	private float price;
 	private int quantity;
+	private String category;
 	
+	public Item(int itemId, String name, float price, int quantity, String category) {
+		this.itemId = itemId;
+		this.name = name;
+		this.price = price;
+		this.quantity = quantity;
+		this.category = category;
+	}
+
 	public Item(int itemId, String name, float price, int quantity) {
 		this.itemId = itemId;
 		this.name = name;
@@ -20,6 +29,13 @@ public class Item {
 		this.name = name;
 		this.price = price;
 		this.quantity = quantity;
+	}
+	
+	public Item(String name, float price, int quantity, String category) {
+		this.name = name;
+		this.price = price;
+		this.quantity = quantity;
+		this.category = category;
 	}
 
 	public static Collection searchByName(String name) {
@@ -60,6 +76,14 @@ public class Item {
 
 	public void setQuantity(int quantity) {
 		this.quantity = quantity;
+	}
+	
+	public String getCategory() {
+		return category;
+	}
+
+	public void setCategory(String category) {
+		this.category = category;
 	}
 	
 	public String toString() {

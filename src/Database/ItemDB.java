@@ -15,6 +15,10 @@ public class ItemDB extends Item {
 	protected ItemDB(int itemId, String name, float price, int quantity) {
 		super(itemId, name, price, quantity);
 	}
+	
+	protected ItemDB(int itemId, String name, float price, int quantity, String category) {
+		super(itemId, name, price, quantity, category);
+	}
 
 	public static Collection<ItemDB> searchByName(String string) {
 
@@ -42,7 +46,6 @@ public class ItemDB extends Item {
 
 	public static Collection listItems() {
 		
-//		Vector<ItemDB> v = new Vector<>();
 		ArrayList<ItemDB> v = new ArrayList<>();
 		Connection conn = DBManager.getConnection();
 		try {
@@ -55,7 +58,8 @@ public class ItemDB extends Item {
 				String Name = rs.getString("Name");
 				int Quantity = rs.getInt("Quantity");
 				float Price = rs.getFloat("Price");
-				v.add(new ItemDB(ItemId, Name, Price, Quantity));
+				String Category = rs.getString("Category");
+				v.add(new ItemDB(ItemId, Name, Price, Quantity, Category));
 			}
 			
 			return v;
