@@ -19,6 +19,10 @@ public class User {
 		this.accessLevel = accessLevel;
 	}
 	
+	public User() {
+		// TODO Auto-generated constructor stub
+	}
+
 	public static Collection<UserDB> searchByUsername(String name) {
 		return UserDB.searchByUsername(name);
 	}

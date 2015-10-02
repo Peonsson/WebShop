@@ -1,5 +1,6 @@
 package BusinessLogic;
 
+import java.sql.ResultSet;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Hashtable;
@@ -71,8 +72,10 @@ public class ItemHandler {
 		return -1;
 	}
 	
-	public static Order createOrder(int myUserId) {
-		User user = UserHandler.getUser(myUserId);
-		return ItemDB.createOrder(myUserId, user.getMyCart());
+	public static void createOrder(int myUserId) {
+		
+		ResultSet rs = ItemDB.getCart(myUserId);
+		ItemDB.createOrder(myUserId, rs);
+		return;
 	}
 }

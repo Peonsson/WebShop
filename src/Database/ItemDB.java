@@ -222,7 +222,7 @@ public class ItemDB extends Item {
 		return -1;
 	}
 	
-	public static Order createOrder(int myUserId, ArrayList<Item> items) {
+	public static void createOrder(int myUserId, ResultSet myResultSet) {
 		
 		Connection conn = DBManager.getConnection();
 		int sent = 0; //not sent yet
@@ -230,32 +230,43 @@ public class ItemDB extends Item {
 		try {
 			
 			conn.setAutoCommit(false);
-			
-			for(int i = 0; i < items.size(); i++) {
-				
 				Statement stmt = conn.createStatement();
 				
-				String query = "UPDATE Item SET " +
-						"Quantity = Quantity - " + items.get(i).getQuantity() +
-						" WHERE ItemId = " + items.get(i).getItemId();
 				
-				stmt.execute(query);
-				
-				String query2 =
-						"INSER INTO Orders (UserId, ItemId, Sent, Quantity) VALUES (" + myUserId + ", " + items.get(i).getItemId() + ", " + sent + ", " + items.get(i).getQuantity() + ")"; 
-				
-				stmt.execute(query2);
-			}
+				while(myResultSet.next()) {
+					String query = "UPDATE Item SET Quantity = Quantity - " + myResultSet.getInt("Quantity") + " WHERE ItemId = " + myResultSet.getInt("ItemId");
+					String query2 = "INSER INTO Orders (UserId, ItemId, Sent, Quantity) VALUES (" + myUserId + ", " + myResultSet.getInt("ItemId") + ", " + sent + ", " + myResultSet.getInt("Quantity") + ")"; 
+					stmt.execute(query);
+					stmt.execute(query2);
+					//TODO: remove
+				}
 			
 			conn.commit();
 			
-			
 		} catch (SQLException e) {
 			e.printStackTrace();
-			return null;
+			return;
+		} finally {
+			try {
+				conn.setAutoCommit(true);
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
 		}
-		
-		
-		return new Order(myUserId, items, sent);
+		return;
+	}
+
+	public static ResultSet getCart(int myUserId) {
+		Connection conn = DBManager.getConnection();
+		try {
+
+			Statement stmt = conn.createStatement();
+			String query = "SELECT * FROM Cart WHERE UsedId = " + myUserId;
+			ResultSet rs = stmt.executeQuery(query);
+			return rs;
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return null;
 	}
 }
