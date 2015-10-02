@@ -44,7 +44,7 @@ public class ItemHandler {
 	
 	public static int addItemToShop(int userId, String name, float price, int quantity, String category) {
 		
-		if(UserHandler.getUser(userId).getAccessLevel() > 1) { //If you are lager personal or administrator you may continue, otherwise return -1
+		if(UserHandler.getUser(userId).getAccessLevel() > 1) { //If I am allowed to do this then continue; else return -1
 			
 			Item item = new Item(name, price, quantity, category);
 			ItemDB.addItemToShop(item);
@@ -63,7 +63,7 @@ public class ItemHandler {
 	
 	public static int modifyItem(int userId, int itemId, String name, int quantity, float price, String category) {
 		
-		if(UserHandler.getUser(userId).getAccessLevel() > 1) {	//if we are lager personnel or administrators you may continue, otherwise return -1
+		if(UserHandler.getUser(userId).getAccessLevel() > 1) {	//If I am allowed to do this then continue; else return -1
 			
 			Item item = new Item(itemId, name, price, quantity, category);
 			return ItemDB.modifyItem(item);

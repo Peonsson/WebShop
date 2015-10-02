@@ -102,7 +102,9 @@ public class UserDB extends User {
 	}
 	
 	public static User getUser(int UserId) {
+		
 		Connection conn = DBManager.getConnection();
+		
 		try {
 
 			Statement stmt = conn.createStatement();
@@ -115,6 +117,86 @@ public class UserDB extends User {
 				int accessLevel = rs.getInt("AccessLevel");
 				return new User(userId, Username, password, accessLevel);
 			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return null;
+	}
+	
+	public static int addUser(String username, String password, int accessLevel) {
+		
+		Connection conn = DBManager.getConnection();
+		
+		try {
+
+			Statement stmt = conn.createStatement();
+			String query = "";
+			stmt.execute(query);
+			
+			return 1;
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return -1;
+	}
+	
+	public static int removeUser(String username) {
+		
+		Connection conn = DBManager.getConnection();
+		
+		try {
+
+			Statement stmt = conn.createStatement();
+			String query = "";
+			stmt.execute(query);
+			
+			return 1;
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return -1;
+	}
+	
+	public static int removeUser(int userId) {
+		
+		Connection conn = DBManager.getConnection();
+		
+		try {
+
+			Statement stmt = conn.createStatement();
+			String query = "";
+			stmt.execute(query);
+			
+			return 1;
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return -1;
+	}
+	
+	public static ArrayList<User> getUsers() {
+		
+		Connection conn = DBManager.getConnection();
+		ArrayList<User> myList = new ArrayList<User>(1000);
+		
+		try {
+
+			Statement stmt = conn.createStatement();
+			String query = "SELECT * FROM User";
+			ResultSet rs = stmt.executeQuery(query);
+			while (rs.next()) {
+				int userId = rs.getInt("UserId");
+				String username = rs.getString("Username");
+				String password = rs.getString("Password");
+				int accessLevel = rs.getInt("AccessLevel");
+				myList.add(new User(userId, username, password, accessLevel));
+			}
+			
+			return myList;
+			
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
