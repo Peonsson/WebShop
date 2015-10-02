@@ -7,23 +7,21 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import BusinessLogic.ItemHandler;
-
-/**
- * Servlet implementation class Checkout
- */
-@WebServlet("/Checkout")
-public class Checkout extends HttpServlet {
+@WebServlet("/Orders")
+public class ListOrders extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
-    public Checkout() {
+    public ListOrders() {
         super();
     }
 
+ 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		// TODO: Waiting for BO logic.
+		response.getWriter().append("No BO logic to list orders.");
+	}
+ 	
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		int userId = Integer.parseInt(request.getParameter("loggedInUser"));
-		ItemHandler.createOrder(userId);
-		// TODO: Waiting for BO logic to list orders
+		// TODO: Waiting for BO logic.
 		response.getWriter().append("No BO logic to list orders.");
 	}
 }
