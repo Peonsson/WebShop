@@ -81,4 +81,12 @@ public class UserHandler {
 		}
 		return -1;
 	}
+	
+	public static ArrayList<User> getUsers(int myUserId) {
+		
+		if(UserHandler.getUser(myUserId).getAccessLevel() > 2) { //If I am allowed to do this then continue; else return -1
+			return UserDB.getUsers(); 		
+		}
+		return null;
+	}
 }
