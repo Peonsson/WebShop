@@ -63,13 +63,13 @@ public class UserHandler {
 			for(int i = 0; i < myUsers.size(); i++) { //Check if new user has unique username
 				String tempDatabaseUsername = myUsers.get(i).getUsername().toLowerCase();  //Compare usernames in lowercase
 				if(tempUsername.equals(tempDatabaseUsername))
-					return -1; //if name isn't unique return -1;
+					return -2; //if name isn't unique return -1;
 			}
 			
 			return UserDB.addUser(username, password, accessLevel); //If I got here continue; else return -1
 			
 		}
-		return -1;
+		return -3;
 	}
 	
 	public static int removeUser(int myUserId, int targetUserId) {

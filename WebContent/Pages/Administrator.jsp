@@ -32,11 +32,13 @@
 	%>
 	<table>
 		<tr>
+			<td>User ID</td>
 			<td>Name</td>
 			<td>Access Level
 		</tr>
 		<c:forEach var="user" items="${users}">
 			<tr>
+				<td>${user.userId}</td>
 				<td>${user.username}</td>
 				<td>${user.accessLevel}</td>
 				<td>
@@ -48,6 +50,15 @@
 			</tr>
 		</c:forEach>
 	</table>
+	
+	Add new user:
+	<form method="post" action="AddUser">
+		Username <input type="text" name="username"><br/>
+		Password <input type="password" name="password"><br/>
+		Access level <input type="text" name="accessLevel"><br/>
+		<button>Add</button>
+	</form>
+	
 	<%
 		}
 	%>
