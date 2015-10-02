@@ -185,7 +185,7 @@ public class UserDB extends User {
 		try {
 
 			Statement stmt = conn.createStatement();
-			String query = "";
+			String query = "DELETE FROM User WHERE UserId = " + userId;
 			stmt.execute(query);
 			
 			return 1;

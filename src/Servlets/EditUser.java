@@ -19,14 +19,21 @@ public class EditUser extends HttpServlet {
     }
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-
+		String remove = request.getParameter("remove");
+		System.out.println("checked? : " + remove);
+		
 		int userToChangeId = Integer.parseInt(request.getParameter("userId"));
 		int loggedInUserId = Integer.parseInt(request.getParameter("loggedInUser"));
 		String username = request.getParameter("username");
 		String password = request.getParameter("password");
 		int accessLevel = Integer.parseInt(request.getParameter("accessLevel"));
 		
-		UserHandler.modifyUser(loggedInUserId, userToChangeId, username, password, accessLevel);
+		if (remove.equals("on")) {
+			UserHandler.removeUser(loggedInUserId, userToChangeId);
+		}
+		else {
+			UserHandler.modifyUser(loggedInUserId, userToChangeId, username, password, accessLevel);
+		}
 		
 		response.sendRedirect("/WebShop/Administration");
 	}

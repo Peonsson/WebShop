@@ -16,6 +16,7 @@
 			Name: <input type="text" name="username" value="${user.username}">
 			Password: <input type="password" name="password" value="${user.password}">
 			Access Level: <input type="text" name="accessLevel" value="${user.accessLevel}">
+			Remove <input type="checkbox" name="remove"/>
 			<br />
 			<input type="hidden" name="userId" value="${user.userId}"/>
 			<input type="hidden" name="loggedInUser" value="<% out.print(session.getAttribute("loggedInUser")) ;%>"/>

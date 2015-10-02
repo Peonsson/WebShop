@@ -47,8 +47,8 @@ public class UserHandler {
 	public static int modifyUserAccesslevel(int myUserId, int targetUserId, int targetAccesslevel) {
 		
 		if(UserHandler.getUser(myUserId).getAccessLevel() > 2) { //If I am allowed to do this then continue; else return -1
-			UserHandler.getUser(targetUserId).setAccessLevel(targetAccesslevel);
-			return 0;
+				UserHandler.getUser(targetUserId).setAccessLevel(targetAccesslevel);
+				return 0;
 		}
 		return -1;
 	}
@@ -87,7 +87,6 @@ public class UserHandler {
 	}
 	
 	public static ArrayList<User> getUsers(int myUserId) {
-		
 		if(UserHandler.getUser(myUserId).getAccessLevel() > 2) { //If I am allowed to do this then continue; else return -1
 			return UserDB.getUsers(); 		
 		}
@@ -95,7 +94,6 @@ public class UserHandler {
 	}
 
 	public static int modifyUser(int myUserId, int targetUserId, String username, String password,	int accessLevel) {
-		
 		if(UserHandler.getUser(myUserId).getAccessLevel() > 2) { //If I am allowed to do this then continue; else return -1
 			return UserDB.modifyUser(targetUserId, username, password, accessLevel); 		
 		}
