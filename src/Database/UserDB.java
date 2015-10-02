@@ -203,7 +203,22 @@ public class UserDB extends User {
 		return null;
 	}
 
-	public static int changePassword(int userId) {
-		return 0;
+	public static int changePassword(int userId, String password) {
+		
+		Connection conn = DBManager.getConnection();
+	
+		try {
+
+			Statement stmt = conn.createStatement();
+			
+			String query = "UPDATE User SET Password = '" + password + "' WHERE UserId = " + userId;
+			stmt.execute(query);
+			
+			return 0;
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return -1;
 	}
 }

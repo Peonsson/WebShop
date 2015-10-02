@@ -14,9 +14,9 @@ public class UserHandler {
 		return UserDB.getUser(userId);
 	}
 	
-//	public static int changePassword(int userId) {
-//		return UserDB.changePassword(int userId);
-//	}
+	public static int changePassword(int userId, String password) {
+		return UserDB.changePassword(userId, password);
+	}
 	
 	public static User loginUser(String username, String password) {
 		
