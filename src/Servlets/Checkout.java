@@ -25,7 +25,7 @@ public class Checkout extends HttpServlet {
 		System.out.println(userId);
 		System.out.println("Checkout!!");
 		// TODO: Wait for BO implementation
-//		ItemHandler.createOrder(userId);
+		ItemHandler.createOrder(userId);
 //		response.sendRedirect("/Webshop/Orders?userId=" + userId); 
 	}
 }

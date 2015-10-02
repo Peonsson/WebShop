@@ -224,26 +224,35 @@ public class ItemDB extends Item {
 	
 	public static void createOrder(int myUserId, ResultSet myResultSet) {
 		
+		System.out.println("got here!");
 		Connection conn = DBManager.getConnection();
 		int sent = 0; //not sent yet
 		
 		try {
 			
 			conn.setAutoCommit(false);
-				Statement stmt = conn.createStatement();
-				
-				
-				while(myResultSet.next()) {
-					String query = "UPDATE Item SET Quantity = Quantity - " + myResultSet.getInt("Quantity") + " WHERE ItemId = " + myResultSet.getInt("ItemId");
-					String query2 = "INSER INTO Orders (UserId, ItemId, Sent, Quantity) VALUES (" + myUserId + ", " + myResultSet.getInt("ItemId") + ", " + sent + ", " + myResultSet.getInt("Quantity") + ")"; 
-					stmt.execute(query);
-					stmt.execute(query2);
-					//TODO: remove
-				}
+			Statement stmt = conn.createStatement();
+			
+			if(myResultSet == null)
+				System.out.println("myResultSet = NULL");
+			
+			while(myResultSet.next()) {
+				String query = "UPDATE Item SET Quantity = Quantity - " + myResultSet.getInt("Quantity") + " WHERE ItemId = " + myResultSet.getInt("ItemId");
+				String query2 = "INSERT INTO Orders (UserId, ItemId, Sent, Quantity) VALUES (" + myUserId + ", " + myResultSet.getInt("ItemId") + ", " + sent + ", " + myResultSet.getInt("Quantity") + ")"; 
+				String query3 = "DELETE FROM Cart WHERE UserId = " + myUserId;
+				stmt.execute(query);
+				stmt.execute(query2);
+				stmt.execute(query3);
+			}
 			
 			conn.commit();
 			
 		} catch (SQLException e) {
+			try {
+				conn.rollback();
+			} catch (SQLException e1) {
+				e1.printStackTrace();
+			}
 			e.printStackTrace();
 			return;
 		} finally {
@@ -261,7 +270,7 @@ public class ItemDB extends Item {
 		try {
 
 			Statement stmt = conn.createStatement();
-			String query = "SELECT * FROM Cart WHERE UsedId = " + myUserId;
+			String query = "SELECT * FROM Cart WHERE UserId = " + myUserId;
 			ResultSet rs = stmt.executeQuery(query);
 			return rs;
 		} catch (SQLException e) {
