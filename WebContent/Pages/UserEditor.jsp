@@ -14,7 +14,7 @@
 	<a href="/WebShop/Administration">Go back</a>
 	<form method="post" action="EditUser">
 			Name: <input type="text" name="username" value="${user.username}">
-			Password: <input type="text" name="password" value="${user.password}">
+			Password: <input type="password" name="password" value="${user.password}">
 			Access Level: <input type="text" name="accessLevel" value="${user.accessLevel}">
 			<br />
 			<input type="hidden" name="userId" value="${user.userId}"/>
