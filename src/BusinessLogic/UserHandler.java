@@ -93,4 +93,13 @@ public class UserHandler {
 		}
 		return null;
 	}
+
+	public static int modifyUser(int myUserId, int targetUserId, String username, String password,	int accessLevel) {
+		
+		if(UserHandler.getUser(myUserId).getAccessLevel() > 2) { //If I am allowed to do this then continue; else return -1
+			return UserDB.modifyUser(targetUserId, username, password, accessLevel); 		
+		}
+		return -1;
+
+	}
 }

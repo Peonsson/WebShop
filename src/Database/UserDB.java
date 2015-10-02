@@ -221,4 +221,22 @@ public class UserDB extends User {
 		}
 		return -1;
 	}
+
+	public static int modifyUser(int targetUserId, String username, String password, int accessLevel) {
+
+		Connection conn = DBManager.getConnection();
+		
+		try {
+
+			Statement stmt = conn.createStatement();
+			String query = "UPDATE User SET Username = '" + username + "',  Password = '" + password + "', AccessLevel = " + accessLevel + " WHERE UserId = " + targetUserId;
+			stmt.execute(query);
+			
+			return 0;
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return -1;
+	}
 }
