@@ -42,7 +42,7 @@
 			<tr>
 				<td>${item.name}</td>
 				<td>${item.quantity}</td>
-				<td>${item.price}</td>
+				<td><c:out value="${item.price * item.quantity}"></c:out> (${item.price} each)</td>
 			</tr>
 		</c:forEach>
 	</table>
