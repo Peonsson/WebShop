@@ -149,7 +149,7 @@ public class UserDB extends User {
 		try {
 
 			Statement stmt = conn.createStatement();
-			String query = "";
+			String query = "INSERT INTO User (Username, Password, AccessLevel) VALUES ('" + username + "', '" + password + "', " + accessLevel + ")";
 			stmt.execute(query);
 			
 			return 1;
