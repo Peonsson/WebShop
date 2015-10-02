@@ -8,8 +8,39 @@
 <title>Insert title here</title>
 </head>
 <body>
-	<a href="/WebShop/">Back to index</a>
-	<br /> Select order to edit
+	<div id="menu">
+		<a class="menuButton" href="/WebShop/">Shop</a>
+		<%
+			if (session.getAttribute("loggedInUser") != null) {
+		%>
+		<a class="menuButton"
+			href="/WebShop/cart?userId=<%out.print(session.getAttribute("loggedInUser"));%>">Cart</a>
+		<a class="menuButton"
+			href="/WebShop/Orders?userId=<%out.print(session.getAttribute("loggedInUser"));%>">Orders</a>
+		<%
+			}
+
+			if ((session.getAttribute("accessLevel") != null)
+				&& ((int) session.getAttribute("accessLevel") > 1)) {
+		%>
+		<a class="menuButton" href="/WebShop/Administration">Administration</a>
+		<%
+			}
+
+			if (session.getAttribute("loggedInUser") != null) {
+		%>
+		<a class="menuButton" href="/WebShop/Settings">Settings</a> <a
+			class="menuButton" href="/WebShop/logout">Logout</a>
+		<%
+			} else {
+		%>
+		<a class="menuButton" href="/WebShop/login">Login</a>
+		<%
+			}
+		%>
+	</div>
+
+	Select order to edit
 	<table>
 		<c:forEach var="item" items="${items}">
 			<tr>
@@ -19,7 +50,7 @@
 				<td>${item.itemId}</td>
 				<td>
 					<form method="post" action="ItemEditor">
-						<input type="hidden" name="itemId" value="${item.itemId}"/>
+						<input type="hidden" name="itemId" value="${item.itemId}" />
 						<button>Edit</button>
 					</form>
 				</td>
@@ -43,22 +74,22 @@
 				<td>${user.accessLevel}</td>
 				<td>
 					<form method="post" action="UserEditor">
-						<input type="hidden" name="userId" value="${user.userId}"/>
+						<input type="hidden" name="userId" value="${user.userId}" />
 						<button>Edit</button>
 					</form>
 				</td>
 			</tr>
 		</c:forEach>
 	</table>
-	
-	Add new user:
+
+	<br> Add new user:
 	<form method="post" action="AddUser">
-		Username <input type="text" name="username"><br/>
-		Password <input type="password" name="password"><br/>
-		Access level <input type="text" name="accessLevel"><br/>
+		Username <input type="text" name="username"><br /> Password <input
+			type="password" name="password"><br /> Access level <input
+			type="text" name="accessLevel"><br />
 		<button>Add</button>
 	</form>
-	
+
 	<%
 		}
 	%>

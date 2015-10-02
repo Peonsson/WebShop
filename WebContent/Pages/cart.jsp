@@ -20,14 +20,22 @@
 			href="/WebShop/Orders?userId=<%out.print(session.getAttribute("loggedInUser"));%>">Orders</a>
 		<%
 			}
-		%>
 
+			if ((session.getAttribute("accessLevel") != null)
+				&& ((int) session.getAttribute("accessLevel") > 1)) {
+		%>
+		<a class="menuButton" href="/WebShop/Administration">Administration</a>
 		<%
+			}
+
 			if (session.getAttribute("loggedInUser") != null) {
-		%><a class="logoutButton" href="/WebShop/logout">Logout</a>
+		%>
+		<a class="menuButton" href="/WebShop/Settings">Settings</a> <a
+			class="menuButton" href="/WebShop/logout">Logout</a>
 		<%
 			} else {
-		%><a class="logoutButton" href="/WebShop/login">Login</a>
+		%>
+		<a class="menuButton" href="/WebShop/login">Login</a>
 		<%
 			}
 		%>
@@ -42,14 +50,16 @@
 			<tr>
 				<td>${item.name}</td>
 				<td>${item.quantity}</td>
-				<td><c:out value="${item.price * item.quantity}"></c:out> (${item.price} each)</td>
+				<td><c:out value="${item.price * item.quantity}"></c:out>
+					(${item.price} each)</td>
 			</tr>
 		</c:forEach>
 	</table>
 
 	<c:if test="${items != null}">
 		<form method="post" action="Checkout">
-			<input type="hidden" name="loggedInUser" value="<% out.print(session.getAttribute("loggedInUser"));%>"/>
+			<input type="hidden" name="loggedInUser"
+				value="<%out.print(session.getAttribute("loggedInUser"));%>" />
 			<button>Checkout order</button>
 		</form>
 	</c:if>

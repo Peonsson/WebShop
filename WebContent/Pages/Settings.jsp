@@ -1,7 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
-
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
@@ -40,18 +38,14 @@
 			}
 		%>
 	</div>
+	Settings
 
-	<a href="/WebShop/Administration">Go back</a>
-	<form method="post" action="EditUser">
-		Name: <input type="text" name="username" value="${user.username}">
-		Password: <input type="password" name="password"
-			value="${user.password}"> Access Level: <input type="text"
-			name="accessLevel" value="${user.accessLevel}"> Remove <input
-			type="checkbox" name="remove" /> <br /> <input type="hidden"
-			name="userId" value="${user.userId}" /> <input type="hidden"
+	<form method="post" action="ChangeSettings">
+		Password <input type="password" name="password_1" /> Repeat password
+		<input type="password" name="password_2" /> <input type="hidden"
 			name="loggedInUser"
 			value="<%out.print(session.getAttribute("loggedInUser"));%>" />
-		<button>Save changes</button>
+		<button>Save settings</button>
 	</form>
 </body>
 </html>

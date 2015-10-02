@@ -21,7 +21,8 @@
 			%>
 			<a class="menuButton"
 				href="/WebShop/cart?userId=<%out.print(session.getAttribute("loggedInUser"));%>">Cart</a>
-			<a class="menuButton" href="/WebShop/Orders?userId=<%out.print(session.getAttribute("loggedInUser"));%>">Orders</a>
+			<a class="menuButton"
+				href="/WebShop/Orders?userId=<%out.print(session.getAttribute("loggedInUser"));%>">Orders</a>
 			<%
 				}
 
@@ -34,10 +35,15 @@
 
 				if (session.getAttribute("loggedInUser") != null) {
 			%>
-				<a class="menuButton" href="/WebShop/logout">Logout</a>
-			<% } else { %>
-				<a class="menuButton" href="/WebShop/login">Login</a>
-			<% } %>
+			<a class="menuButton" href="/WebShop/Settings">Settings</a> <a
+				class="menuButton" href="/WebShop/logout">Logout</a>
+			<%
+				} else {
+			%>
+			<a class="menuButton" href="/WebShop/login">Login</a>
+			<%
+				}
+			%>
 		</div>
 
 		<div id="main">
