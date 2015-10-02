@@ -26,8 +26,8 @@
     <servlet-class>Servlets.ListShopItems</servlet-class>
   </servlet>
   <servlet>
-    <servlet-name>ListEditItems</servlet-name>
-    <servlet-class>Servlets.ListEditItems</servlet-class>
+    <servlet-name>GetAdministrationData</servlet-name>
+    <servlet-class>Servlets.GetAdministrationData</servlet-class>
   </servlet>
   <servlet>
     <servlet-name>GetItem</servlet-name>
@@ -58,8 +58,8 @@
     <url-pattern>/</url-pattern>
   </servlet-mapping>
   <servlet-mapping>
-    <servlet-name>ListEditItems</servlet-name>
-    <url-pattern>/ItemAdministrator</url-pattern>
+    <servlet-name>GetAdministrationData</servlet-name>
+    <url-pattern>/Administration</url-pattern>
   </servlet-mapping>
   <servlet-mapping>
     <servlet-name>GetItem</servlet-name>

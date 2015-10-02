@@ -23,17 +23,20 @@
 				href="/WebShop/cart?userId=<%out.print(session.getAttribute("loggedInUser"));%>">Cart</a>
 			<%
 				}
-			%>
 
-			<%
-				if (session.getAttribute("loggedInUser") != null) {
-			%><a class="logoutButton" href="/WebShop/logout">Logout</a>
-			<%
-				} else {
-			%><a class="logoutButton" href="/WebShop/login">Login</a>
+				if ((session.getAttribute("accessLevel") != null)
+					&& ((int) session.getAttribute("accessLevel") > 1)) {
+			%>
+			<a class="menuButton" href="/WebShop/Administration">Administration</a>
 			<%
 				}
+
+				if (session.getAttribute("loggedInUser") != null) {
 			%>
+				<a class="menuButton" href="/WebShop/logout">Logout</a>
+			<% } else { %>
+				<a class="menuButton" href="/WebShop/login">Login</a>
+			<% } %>
 		</div>
 
 		<div id="main">
@@ -50,10 +53,12 @@
 						<td>${item.quantity}</td>
 						<td>${item.price}</td>
 						<td>${item.category}</td>
+						<% if (session.getAttribute("loggedInUser") != null) { %>
 						<td><form method="post"
 								action="AddItemToCart?loggedInUser=<% out.print(session.getAttribute("loggedInUser")); %>&itemId=${item.itemId}&quantity=5">
 								<button>add</button>
 							</form>
+						<% } %>
 					</tr>
 				</c:forEach>
 			</table>

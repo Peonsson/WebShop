@@ -29,7 +29,7 @@ public class EditItem extends HttpServlet {
 				
 		ItemHandler.modifyItem(userId, itemId, name, quantity, price, category);
 		
-		response.sendRedirect("/WebShop/ItemAdministrator");
+		response.sendRedirect("/WebShop/Administration");
 		
 	}
 }

@@ -1,8 +1,6 @@
 package Servlets;
 
 import java.io.IOException;
-import java.util.List;
-
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -11,24 +9,25 @@ import javax.servlet.http.HttpServletResponse;
 
 import BusinessLogic.Item;
 import BusinessLogic.ItemHandler;
+import BusinessLogic.User;
+import BusinessLogic.UserHandler;
 
-//@WebServlet("/edititems")
-public class ListEditItems extends HttpServlet {
+/**
+ * Servlet implementation class GetUser
+ */
+@WebServlet("/UserEditor")
+public class GetUser extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
-    public ListEditItems() {
+    public GetUser() {
         super();
+        // TODO Auto-generated constructor stub
     }
 
-	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		List<Item> items = ItemHandler.listItems();
-		System.out.println("ListEditItems AL: " + items.toString());
-		
-		request.setAttribute("items", items);
-		request.getRequestDispatcher("/Pages/ItemAdministrator.jsp").forward(request, response);
-	}
-
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		doGet(request, response);
+		int userId = Integer.parseInt(request.getParameter("userId"));
+ 		User user = UserHandler.getUser(userId);
+ 		request.setAttribute("user", user);
+ 		request.getRequestDispatcher("/Pages/UserEditor.jsp").forward(request, response);
 	}
 }

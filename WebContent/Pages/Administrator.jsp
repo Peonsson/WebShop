@@ -8,8 +8,8 @@
 <title>Insert title here</title>
 </head>
 <body>
-
-	Select order to edit
+	<a href="/WebShop/">Back to index</a>
+	<br /> Select order to edit
 	<table>
 		<c:forEach var="item" items="${items}">
 			<tr>
@@ -18,7 +18,8 @@
 				<td>${item.price}</td>
 				<td>${item.itemId}</td>
 				<td>
-					<form method="post" action="ItemEditor?itemId=${item.itemId}">
+					<form method="post" action="ItemEditor">
+						<input type="hidden" name="itemId" value="${item.itemId}"/>
 						<button>Edit</button>
 					</form>
 				</td>
@@ -26,5 +27,29 @@
 		</c:forEach>
 	</table>
 
+	<%
+		if ((int) session.getAttribute("accessLevel") > 2) {
+	%>
+	<table>
+		<tr>
+			<td>Name</td>
+			<td>Access Level
+		</tr>
+		<c:forEach var="user" items="${users}">
+			<tr>
+				<td>${user.username}</td>
+				<td>${user.accessLevel}</td>
+				<td>
+					<form method="post" action="UserEditor">
+						<input type="hidden" name="userId" value="${user.userId}"/>
+						<button>Edit</button>
+					</form>
+				</td>
+			</tr>
+		</c:forEach>
+	</table>
+	<%
+		}
+	%>
 </body>
 </html>
