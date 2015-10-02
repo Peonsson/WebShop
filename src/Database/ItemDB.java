@@ -242,17 +242,20 @@ public class ItemDB extends Item {
 				stmt.execute(query);
 				
 				String query2 =
-						"INSER INTO Order (UserId, ItemId, Sent, Quantity) VALUES (" + myUserId + ", " + items.get(i).getItemId() + ", " + sent + ", " + items.get(i).getQuantity() + ")"; 
+						"INSER INTO Orders (UserId, ItemId, Sent, Quantity) VALUES (" + myUserId + ", " + items.get(i).getItemId() + ", " + sent + ", " + items.get(i).getQuantity() + ")"; 
 				
 				stmt.execute(query2);
 			}
 			
 			conn.commit();
 			
+			
 		} catch (SQLException e) {
 			e.printStackTrace();
 			return null;
 		}
+		
+		
 		return new Order(myUserId, items, sent);
 	}
 }
