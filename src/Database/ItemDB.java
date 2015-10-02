@@ -5,11 +5,14 @@ import java.util.Collection;
 import java.util.Vector;
 
 import java.sql.Connection;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 
 import BusinessLogic.Item;
+import BusinessLogic.Order;
+import BusinessLogic.User;
 
 public class ItemDB extends Item {
 	protected ItemDB(int itemId, String name, float price, int quantity) {
@@ -217,5 +220,39 @@ public class ItemDB extends Item {
 			e.printStackTrace();
 		}
 		return -1;
+	}
+	
+	public static Order createOrder(int myUserId, ArrayList<Item> items) {
+		
+		Connection conn = DBManager.getConnection();
+		int sent = 0; //not sent yet
+		
+		try {
+			
+			conn.setAutoCommit(false);
+			
+			for(int i = 0; i < items.size(); i++) {
+				
+				Statement stmt = conn.createStatement();
+				
+				String query = "UPDATE Item SET " +
+						"Quantity = Quantity - " + items.get(i).getQuantity() +
+						" WHERE ItemId = " + items.get(i).getItemId();
+				
+				stmt.execute(query);
+				
+				String query2 =
+						"INSER INTO Order (UserId, ItemId, Sent, Quantity) VALUES (" + myUserId + ", " + items.get(i).getItemId() + ", " + sent + ", " + items.get(i).getQuantity() + ")"; 
+				
+				stmt.execute(query2);
+			}
+			
+			conn.commit();
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+			return null;
+		}
+		return new Order(myUserId, items, sent);
 	}
 }

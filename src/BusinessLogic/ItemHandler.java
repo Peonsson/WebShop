@@ -70,4 +70,9 @@ public class ItemHandler {
 		}
 		return -1;
 	}
+	
+	
+	public static Order createOrder(int myUserId, ArrayList<Item> items) {
+		return ItemDB.createOrder(myUserId, items);
+	}
 }

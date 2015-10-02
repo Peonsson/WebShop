@@ -21,6 +21,10 @@ public class UserHandler {
 	public static User loginUser(String username, String password) {
 		
 		User user = UserDB.getUser(username);
+		
+		if(user == null)
+			return null;
+		
 		username = username.toLowerCase();
 		if(username.equals(user.getUsername().toLowerCase()) && password.equals(user.getPassword()))
 			return user;
