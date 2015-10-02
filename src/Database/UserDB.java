@@ -110,30 +110,13 @@ public class UserDB extends User {
 			Statement stmt = conn.createStatement();
 			String query = "SELECT * FROM User WHERE UserId = '" + UserId + "'";
 			ResultSet rs = stmt.executeQuery(query);
-			ArrayList<Item> myCart = new ArrayList<Item>();
-			while (rs.next()) {
+			if (rs.next()) {
 				user.setUserId(rs.getInt("UserId"));
 				user.setUsername(rs.getString("Username"));
 				user.setPassword(rs.getString("Password"));
 				user.setAccessLevel(rs.getInt("AccessLevel"));
 			}
-			
-			Statement stmt2 = conn.createStatement();
-			String query2 = "SELECT Item.ItemId FROM Cart JOIN Category ON  WHERE UserId = '" + UserId + "'";
-			ResultSet rs2 = stmt.executeQuery(query);
-			
-			while (rs2.next()) {
-				
-				int itemId = rs.getInt("ItemId");
-				String name = rs.getString("Name");
-				float price = rs.getFloat("Price");
-				int quantity = rs.getInt("Quantity");
-				String category = rs.getString("Category");
-				
-				//Item.ItemId, Item.Name, Item.Price, Cart.Quantity, Category.Name
-				myCart.add(new Item(itemId, name, price, quantity, category));
-				user.setMyCart(myCart);
-			}
+
 			return user;
 			
 		} catch (SQLException e) {
