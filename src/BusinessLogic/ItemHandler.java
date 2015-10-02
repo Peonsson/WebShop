@@ -71,8 +71,8 @@ public class ItemHandler {
 		return -1;
 	}
 	
-	
-	public static Order createOrder(int myUserId, ArrayList<Item> items) {
-		return ItemDB.createOrder(myUserId, items);
+	public static Order createOrder(int myUserId) {
+		User user = UserHandler.getUser(myUserId);
+		return ItemDB.createOrder(myUserId, user.getMyCart());
 	}
 }
