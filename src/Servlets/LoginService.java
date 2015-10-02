@@ -35,6 +35,7 @@ public class LoginService extends HttpServlet {
 			if (user != null) {
 				HttpSession session = request.getSession(true);
 				session.setAttribute("loggedInUser", user.getUserId());
+				session.setAttribute("accessLevel", user.getAccessLevel());
 				response.sendRedirect("/WebShop/");
 			} else
 				response.sendRedirect("/WebShop/login");
