@@ -8,6 +8,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import BusinessLogic.User;
 import BusinessLogic.UserHandler;
 
 @WebServlet("/LoginService")
@@ -29,11 +30,11 @@ public class LoginService extends HttpServlet {
 		String password = request.getParameter("password");
 
 		if (!username.isEmpty() && !password.isEmpty()) {
-			int userId = UserHandler.loginUser(username, password);
+			User user = UserHandler.loginUser(username, password);
 
-			if (userId != -1) {
+			if (user != null) {
 				HttpSession session = request.getSession(true);
-				session.setAttribute("loggedInUser", userId);
+				session.setAttribute("loggedInUser", user.getUserId());
 				response.sendRedirect("/WebShop/");
 			} else
 				response.sendRedirect("/WebShop/login");

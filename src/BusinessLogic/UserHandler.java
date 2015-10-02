@@ -14,14 +14,18 @@ public class UserHandler {
 		return UserDB.getUser(userId);
 	}
 	
-	public static int loginUser(String username, String password) {
+//	public static int changePassword(int userId) {
+//		return UserDB.changePassword(int userId);
+//	}
+	
+	public static User loginUser(String username, String password) {
 		
 		User user = UserDB.getUser(username);
 		username = username.toLowerCase();
 		if(username.equals(user.getUsername().toLowerCase()) && password.equals(user.getPassword()))
-			return user.getUserId();
+			return user;
 		else
-			return -1;
+			return null;
 	}
 	
 	public static ArrayList<Item> listCartByUserId(int userId) {

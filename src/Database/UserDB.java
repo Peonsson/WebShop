@@ -202,4 +202,8 @@ public class UserDB extends User {
 		}
 		return null;
 	}
+
+	public static int changePassword(int userId) {
+		return 0;
+	}
 }
