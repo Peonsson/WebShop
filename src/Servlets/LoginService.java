@@ -11,6 +11,12 @@ import javax.servlet.http.HttpSession;
 import BusinessLogic.User;
 import BusinessLogic.UserHandler;
 
+/**
+ * This servlet tries to log in a user.
+ *
+ * @author Johan Pettersson, Robin Veteläinen, TIDAA3
+ */
+
 @WebServlet("/LoginService")
 public class LoginService extends HttpServlet {
 	private static final long serialVersionUID = 1L;
@@ -19,13 +25,7 @@ public class LoginService extends HttpServlet {
 		super();
 	}
 
-	protected void doGet(HttpServletRequest request, HttpServletResponse response)
-			throws ServletException, IOException {
-		response.getWriter().append("Served at: ").append(request.getContextPath());
-	}
-
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-
 		String username = request.getParameter("username");
 		String password = request.getParameter("password");
 

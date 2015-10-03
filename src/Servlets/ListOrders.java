@@ -13,18 +13,23 @@ import javax.servlet.http.HttpSession;
 import BusinessLogic.ItemHandler;
 import BusinessLogic.Order;
 
+/**
+ * This servlet gets a users orders.
+ *
+ * @author Johan Pettersson, Robin Veteläinen, TIDAA3
+ */
+
 @WebServlet("/Orders")
 public class ListOrders extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
-    public ListOrders() {
-        super();
-    }
+	public ListOrders() {
+		super();
+	}
 
  	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
  		HttpSession session = request.getSession();
  		int userId = (int) session.getAttribute("loggedInUser");
- 		
  		ArrayList<Order> orders = ItemHandler.getUserOrders(userId);
  		request.setAttribute("orders", orders);
  		request.getRequestDispatcher("/Pages/Orders.jsp").forward(request, response);

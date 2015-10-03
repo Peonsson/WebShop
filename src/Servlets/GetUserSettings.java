@@ -11,13 +11,19 @@ import javax.servlet.http.HttpSession;
 import BusinessLogic.User;
 import BusinessLogic.UserHandler;
 
+/**
+ * This servlet gets user settings for the private settings page.
+ *
+ * @author Johan Pettersson, Robin Veteläinen, TIDAA3
+ */
+
 @WebServlet("/Settings")
 public class GetUserSettings extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
-    public GetUserSettings() {
-        super();
-    }
+	public GetUserSettings() {
+		super();
+	}
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		HttpSession session = request.getSession();

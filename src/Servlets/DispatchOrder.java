@@ -10,13 +10,19 @@ import javax.servlet.http.HttpSession;
 
 import BusinessLogic.ItemHandler;
 
+/**
+ * This servlet dispatches a order, that is a warehouse worker sends it.
+ *
+ * @author Johan Pettersson, Robin Veteläinen, TIDAA3
+ */
+
 @WebServlet("/DispatchOrder")
 public class DispatchOrder extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-       
-    public DispatchOrder() {
-        super();
-    }
+	
+	public DispatchOrder() {
+		super();
+	}
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		HttpSession session = request.getSession();

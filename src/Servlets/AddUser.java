@@ -10,13 +10,19 @@ import javax.servlet.http.HttpSession;
 
 import BusinessLogic.UserHandler;
 
+/**
+ * This servlet adds items from index to cart.
+ *
+ * @author Johan Pettersson, Robin Veteläinen, TIDAA3
+ */
+
 @WebServlet("/AddUser")
 public class AddUser extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-       
-    public AddUser() {
-        super();
-    }
+	
+	public AddUser() {
+		super();
+	}
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		HttpSession session = request.getSession();

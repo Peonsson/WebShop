@@ -11,16 +11,18 @@ import BusinessLogic.User;
 import BusinessLogic.UserHandler;
 
 /**
- * Servlet implementation class GetUser
+ * This servlet gets user information for the user editor jsp file.
+ *
+ * @author Johan Pettersson, Robin Veteläinen, TIDAA3
  */
+
 @WebServlet("/UserEditor")
 public class GetUser extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
-    public GetUser() {
-        super();
-        // TODO Auto-generated constructor stub
-    }
+	public GetUser() {
+		super();
+	}
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		int userId = Integer.parseInt(request.getParameter("userId"));

@@ -15,13 +15,20 @@ import BusinessLogic.Order;
 import BusinessLogic.User;
 import BusinessLogic.UserHandler;
 
+/**
+ * This servlet gets all data required for the administration view
+ * and dispatches it to the administration jsp file.
+ *
+ * @author Johan Pettersson, Robin Veteläinen, TIDAA3
+ */
+
 //@WebServlet("/edititems")
 public class GetAdministrationData extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
-    public GetAdministrationData() {
-        super();
-    }
+	public GetAdministrationData() {
+		super();
+	}
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		HttpSession session = request.getSession();
@@ -44,9 +51,5 @@ public class GetAdministrationData extends HttpServlet {
 		}
 
 		request.getRequestDispatcher("/Pages/Administrator.jsp").forward(request, response);		
-	}
-
-	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		doGet(request, response);
 	}
 }

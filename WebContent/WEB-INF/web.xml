@@ -2,10 +2,6 @@
 <web-app xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://xmlns.jcp.org/xml/ns/javaee" xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/web-app_3_1.xsd" version="3.1">
   <display-name>WebShop</display-name>
   <servlet>
-    <servlet-name>ListCart</servlet-name>
-    <servlet-class>Servlets.ListCart</servlet-class>
-  </servlet>
-  <servlet>
     <servlet-name>AddItemToCart</servlet-name>
     <servlet-class>Servlets.AddItemToCart</servlet-class>
   </servlet>
@@ -14,16 +10,8 @@
     <jsp-file>/Pages/login.jsp</jsp-file>
   </servlet>
   <servlet>
-    <servlet-name>ListShopItems</servlet-name>
-    <servlet-class>Servlets.ListShopItems</servlet-class>
-  </servlet>
-  <servlet>
     <servlet-name>GetAdministrationData</servlet-name>
     <servlet-class>Servlets.GetAdministrationData</servlet-class>
-  </servlet>
-  <servlet>
-    <servlet-name>GetItem</servlet-name>
-    <servlet-class>Servlets.GetItem</servlet-class>
   </servlet>
   <servlet>
     <servlet-name>EditItem</servlet-name>
@@ -34,10 +22,6 @@
     <servlet-class>Servlets.LogoutService</servlet-class>
   </servlet>
   <servlet-mapping>
-    <servlet-name>ListCart</servlet-name>
-    <url-pattern>/cart</url-pattern>
-  </servlet-mapping>
-  <servlet-mapping>
     <servlet-name>AddItemToCart</servlet-name>
     <url-pattern>/AddItemToCart</url-pattern>
   </servlet-mapping>
@@ -46,16 +30,8 @@
     <url-pattern>/login</url-pattern>
   </servlet-mapping>
   <servlet-mapping>
-    <servlet-name>ListShopItems</servlet-name>
-    <url-pattern>/</url-pattern>
-  </servlet-mapping>
-  <servlet-mapping>
     <servlet-name>GetAdministrationData</servlet-name>
     <url-pattern>/Administration</url-pattern>
-  </servlet-mapping>
-  <servlet-mapping>
-    <servlet-name>GetItem</servlet-name>
-    <url-pattern>/ItemEditor</url-pattern>
   </servlet-mapping>
   <servlet-mapping>
     <servlet-name>EditItem</servlet-name>

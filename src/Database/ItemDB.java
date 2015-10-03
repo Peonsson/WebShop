@@ -237,6 +237,7 @@ public class ItemDB extends Item {
 
 		Connection conn = DBManager.getConnection();
 		try {
+			// TRANSACTION START
 			conn.setAutoCommit(false);
 			Statement stmt = conn.createStatement();
 			int categoryId = -1;
@@ -246,20 +247,21 @@ public class ItemDB extends Item {
 			ResultSet rs = stmt.executeQuery(getOrSetCategoryQuery);
 
 			if (rs.next()) { // if categoryId exists - get it; else create it
-			categoryId = rs.getInt("CategoryId");
+				categoryId = rs.getInt("CategoryId");
 
-			} else {
-			String createCategory = "INSERT INTO Category (Name) VALUES ('"
-					+ category + "')";
-			stmt.execute(createCategory); // create the category
-
-			String getOrSetCategoryQuery2 = "SELECT * FROM Category WHERE Name = '"
-					+ category + "'";
-			ResultSet rs3 = stmt.executeQuery(getOrSetCategoryQuery2); // get
-																		// new
-																		// categoryId
-			if (rs3.next())
-				categoryId = rs3.getInt("CategoryId");
+			}
+			else {
+				String createCategory = "INSERT INTO Category (Name) VALUES ('"
+						+ category + "')";
+				stmt.execute(createCategory); // create the category
+	
+				String getOrSetCategoryQuery2 = "SELECT * FROM Category WHERE Name = '"
+						+ category + "'";
+				ResultSet rs3 = stmt.executeQuery(getOrSetCategoryQuery2); // get
+																			// new
+																			// categoryId
+				if (rs3.next())
+					categoryId = rs3.getInt("CategoryId");
 			}
 
 			String query = "UPDATE Item SET " + "Name = '" + name + "', "
@@ -268,6 +270,7 @@ public class ItemDB extends Item {
 
 			stmt.execute(query);
 			conn.commit();
+			// TRANSACTION DONE
 			conn.setAutoCommit(true);
 			return 0;
 		} catch (SQLException e) {

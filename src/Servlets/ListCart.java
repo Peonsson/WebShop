@@ -13,13 +13,19 @@ import javax.servlet.http.HttpSession;
 import BusinessLogic.Item;
 import BusinessLogic.UserHandler;
 
-@WebServlet("/listCartByUserIdServlet")
+/**
+ * This servlet gets items in a users cart.
+ *
+ * @author Johan Pettersson, Robin Veteläinen, TIDAA3
+ */
+
+@WebServlet("/cart")
 public class ListCart extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
-    public ListCart() {
-        super();
-    }
+	public ListCart() {
+		super();
+	}
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		HttpSession session = request.getSession();
