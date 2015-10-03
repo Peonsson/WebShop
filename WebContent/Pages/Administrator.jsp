@@ -41,6 +41,7 @@
 	<br> Select item to edit
 	<table>
 		<tr>
+			<td>Item ID</td>
 			<td>Name</td>
 			<td>Quantity</td>
 			<td>Price</td>
@@ -48,6 +49,7 @@
 		</tr>
 		<c:forEach var="item" items="${items}">
 			<tr>
+				<td>${item.itemId}</td>
 				<td>${item.name}</td>
 				<td>${item.quantity}</td>
 				<td>${item.price}</td>
@@ -61,6 +63,18 @@
 			</tr>
 		</c:forEach>
 	</table>
+	
+	<br> Add new item:
+	<form method="post" action="AddItemToShop">
+
+		Name <input type="text" name="name"><br /> Quantity <input
+			type="text" name="quantity"><br /> Price <input type="text"
+			name="price"><br /> Category <input type="text"
+			name="category"><br />
+
+		<button>Add</button>
+
+	</form>
 
 	<%
 		if ((int) session.getAttribute("accessLevel") > 2) {
@@ -97,25 +111,12 @@
 
 	<%
 		}
-
 		else if ((int) session.getAttribute("accessLevel") == 2) {
 	%>
-
+		warehouse worker
 	<%
 		}
 	%>
-
-	<br> Add new item:
-	<form method="post" action="AddItemToShop">
-
-		Name <input type="text" name="name"><br /> Quantity <input
-			type="text" name="quantity"><br /> Price <input type="text"
-			name="price"><br /> Category <input type="text"
-			name="category"><br />
-
-		<button>Add</button>
-
-	</form>
 
 </body>
 </html>
