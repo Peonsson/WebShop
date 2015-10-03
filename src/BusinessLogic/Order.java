@@ -9,7 +9,7 @@ public class Order {
 	private ArrayList<Item> items;
 	private int sent;
 	
-	public Order(int orderId, int userId, ArrayList<Item> items, int sent, int quantity) {
+	public Order(int orderId, int userId, ArrayList<Item> items, int sent) {
 		this.orderId = orderId;
 		this.userId = userId;
 		this.items = items;
@@ -56,5 +56,17 @@ public class Order {
 
 	public void setSent(int sent) {
 		this.sent = sent;
+	}
+	
+	public String toString() {
+		String string = "";
+		
+		for (int i = 0; i < items.size(); i++) {
+			string += items.get(i).toString() + " ";
+		}
+		
+		string += "Sent: " + sent + "\n";
+		
+		return string;
 	}
 }

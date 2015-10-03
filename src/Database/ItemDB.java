@@ -4,12 +4,15 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Vector;
 
+import com.mysql.jdbc.PreparedStatement;
+
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 
 import BusinessLogic.Item;
+import BusinessLogic.Order;
 
 public class ItemDB extends Item {
 	protected ItemDB(int itemId, String name, float price, int quantity) {
@@ -260,6 +263,66 @@ public class ItemDB extends Item {
 			}
 		}
 		return;
+	}
+	
+	public static ArrayList<Order> getUserOrders(int userId) {
+		ArrayList<Integer> userOrderIds = new ArrayList<>();
+		ArrayList<Integer> sendStatusOrder = new ArrayList<>();
+		ArrayList<Order> orders = new ArrayList<>();
+		
+		Connection conn = DBManager.getConnection();
+		
+		try {
+			PreparedStatement query = (PreparedStatement) conn.prepareStatement("SELECT * FROM UserOrders WHERE UserId = ?");
+			query.setInt(1, userId);
+			ResultSet rs = query.executeQuery();
+			
+			// Add order ids belonging to a user into list
+			while (rs.next()) {
+				userOrderIds.add(rs.getInt("UserOrderId"));
+				sendStatusOrder.add(rs.getInt("Sent"));
+			}
+			
+			System.out.println("AL : " + userOrderIds.toString());
+			
+			// Make query for each order id belonging to user
+			query = (PreparedStatement) conn.prepareStatement("SELECT * FROM OrderItem WHERE UserOrderId = ?");
+			for (int i = 0; i < userOrderIds.size(); i++) {
+				ArrayList<Item> items = new ArrayList<>();
+				
+				query.setInt(1, userOrderIds.get(i));
+				rs = query.executeQuery();
+				
+				while (rs.next()) {
+					// Get the item in the order
+					PreparedStatement query1 = (PreparedStatement) conn.prepareStatement("SELECT ItemId, Name, Price, Category FROM Item WHERE ItemId = ?");
+					query1.setInt(1, rs.getInt("ItemId"));
+					ResultSet rs1 = query1.executeQuery();
+					rs1.next();
+					
+					int itemId = rs1.getInt("ItemId");
+					String name = rs1.getString("Name");
+					float price = rs1.getFloat("Price");
+					int quantity = rs.getInt("Quantity");
+					int category = rs1.getInt("Category");
+					
+					// Get the category name string
+					PreparedStatement query2 = (PreparedStatement) conn.prepareStatement("SELECT Name FROM Category WHERE CategoryId = ?");
+					query2.setInt(1, category);
+					ResultSet rs2 = query2.executeQuery();
+					rs2.next();
+					
+					items.add(new Item(itemId, name, price, quantity, rs2.getString("Name")));
+				}
+				
+				orders.add(new Order(userOrderIds.get(i), userId, items, sendStatusOrder.get(i)));
+			}
+		}
+		catch (SQLException e) {
+			e.printStackTrace();
+		}
+		
+		return orders;
 	}
 
 	public static ResultSet getCart(int myUserId) {

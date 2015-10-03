@@ -77,4 +77,9 @@ public class ItemHandler {
 		ItemDB.createOrder(myUserId, rs);
 		return;
 	}
+	
+	public static ArrayList<Order> getUserOrders(int userId) {
+		ArrayList<Order> orders = ItemDB.getUserOrders(userId);
+		return orders;
+	}
 }
