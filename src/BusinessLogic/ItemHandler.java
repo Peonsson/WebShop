@@ -76,4 +76,12 @@ public class ItemHandler {
 		ItemDB.createOrder(myUserId, rs);
 		return;
 	}
+	
+	public static int removeItemFromShop(int userId, int itemId) {
+	
+		if(UserHandler.getUser(userId).getAccessLevel() > 1) {	//If I am allowed to do this then continue; else return -1
+			return ItemDB.removeItemFromShop(itemId);
+		}
+		return -1;
+	}
 }

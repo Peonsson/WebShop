@@ -24,10 +24,14 @@ public class EditItem extends HttpServlet {
 		int quantity = Integer.parseInt(request.getParameter("quantity"));
 		float price = Float.parseFloat(request.getParameter("price"));
 		String category = request.getParameter("category");
-				
-		ItemHandler.modifyItem(userId, itemId, name, quantity, price, category);
+		
+		String remove = request.getParameter("remove");
+		if(remove == null) {
+			ItemHandler.modifyItem(userId, itemId, name, quantity, price, category);
+		} else {
+			ItemHandler.removeItemFromShop(userId, itemId);
+		}
 		
 		response.sendRedirect("/WebShop/Administration");
-		
 	}
 }

@@ -89,32 +89,23 @@ public static int addItemToShop(Item item) {
 			ResultSet rs = stmt.executeQuery(getOrSetCategoryQuery);
 			
 			if(rs.next()) { //if categoryId exists - get it; else create it
-				
 				categoryId = rs.getInt("CategoryId");
-				System.out.println("got here 1");
 				
 			} else {
 				
-				System.out.println("got here 2");
 				String createCategory = "INSERT INTO Category (Name) VALUES ('" + category + "')";
 				stmt.execute(createCategory); // create the category
-				System.out.println("got here 3");
 
 				String getOrSetCategoryQuery2 = "SELECT * FROM Category WHERE Name = '" + category + "'";
 				ResultSet rs3 = stmt.executeQuery(getOrSetCategoryQuery2); //get new categoryId
-				System.out.println("got here 4");
 
 				if(rs3.next()){
 					categoryId = rs3.getInt("CategoryId");
-					System.out.println("got here 5");
 				}
 			}
 			
-			System.out.println("got here 6");
 			String query = "INSERT INTO Item (Name, Price, Quantity, Category) VALUES ('" + name + "', " + price + ", " + quantity + ", " + categoryId +")";
-			
 			stmt.execute(query);
-			System.out.println("got here 7");
 
 			return 0;
 			
@@ -124,19 +115,19 @@ public static int addItemToShop(Item item) {
 		return -1;
 	}
 
-	public static void removeItemFromShop(int itemId) {
+	public static int removeItemFromShop(int itemId) {
 
 		Connection conn = DBManager.getConnection();
 
 		try {
 			Statement stmt = conn.createStatement();
 			String query = "DELETE FROM Item WHERE ItemId = " + itemId;
-			stmt.executeQuery(query);
-			return;
+			stmt.execute(query);
+			return 0;
 		} catch (SQLException e) {
 			e.printStackTrace();
+			return -1;
 		}
-		return;
 	}
 
 	public static void removeItemFromShop(String name) {
