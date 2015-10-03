@@ -31,7 +31,7 @@ public class GetAdministrationData extends HttpServlet {
 		List<Item> items = ItemHandler.listItems();
 		request.setAttribute("items", items);
 		
-		if (accessLevel > 3) {
+		if (accessLevel > 2) {
 			// Get user list (for admins)
 			List<User> users = UserHandler.getUsers(userId);
 			request.setAttribute("users", users);
