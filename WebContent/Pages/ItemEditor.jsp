@@ -45,7 +45,7 @@
 		Name: <input type="text" name="name" value="${item.name}">
 		Price: <input type="text" name="price" value="${item.price}">
 		Quantity: <input type="text" name="quantity" value="${item.quantity}">
-		Category <input type="text" name="category">
+		Category <input type="text" name="category" value="${item.category}">
 		Remove<input name="remove" type="checkbox"> <br /> <input
 			type="hidden" name="itemId" value="${item.itemId}" /> <input
 			type="hidden" name="loggedInUser"

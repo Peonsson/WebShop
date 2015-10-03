@@ -207,7 +207,7 @@ public class ItemDB extends Item {
 			float price = rs.getFloat("Price");
 			int quantity = rs.getInt("Quantity");
 			String category = rs.getString("Category.Name");
-
+			
 			item.setItemId(itemId);
 			item.setName(Name);
 			item.setPrice(price);
