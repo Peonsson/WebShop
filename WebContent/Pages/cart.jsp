@@ -39,28 +39,37 @@
 			}
 		%>
 	</div>
-	<table id="itemList">
-		<tr>
-			<td>Name</td>
-			<td>Quantity</td>
-			<td>Price</td>
-		</tr>
-		<c:forEach var="item" items="${items}">
-			<tr>
-				<td>${item.name}</td>
-				<td>${item.quantity}</td>
-				<td><c:out value="${item.price * item.quantity}"></c:out>
-					(${item.price} each)</td>
-			</tr>
-		</c:forEach>
-	</table>
-
-	<c:if test="${items != null}">
-		<form method="post" action="Checkout">
-			<input type="hidden" name="loggedInUser"
-				value="<%out.print(session.getAttribute("loggedInUser"));%>" />
-			<button>Checkout order</button>
-		</form>
-	</c:if>
+	
+	<c:choose>
+		<c:when test="${not empty items}">
+			<table id="itemList">
+				<tr>
+					<td>Name</td>
+					<td>Quantity</td>
+					<td>Price</td>
+				</tr>
+				<c:forEach var="item" items="${items}">
+				<tr>
+					<td>${item.name}</td>
+					<td>${item.quantity}</td>
+					<td><c:out value="${item.price * item.quantity}"></c:out>(${item.price} each)</td>
+					<td>
+						<form method="post" action="RemoveItemFromCart">
+							<input type="hidden" name="itemId" value="${item.itemId}"/>
+							<button>Remove from cart</button>
+						</form>
+					</td>
+					</tr>
+				</c:forEach>
+			</table>
+			<form method="post" action="Checkout">
+				<input type="hidden" name="loggedInUser" value="<%out.print(session.getAttribute("loggedInUser"));%>" />
+				<button>Checkout order</button>
+			</form>
+		</c:when>
+		<c:when test="${empty items}">
+			Cart is empty!
+		</c:when>
+	</c:choose>
 </body>
 </html>

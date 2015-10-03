@@ -364,8 +364,6 @@ public class ItemDB extends Item {
 			sendStatusOrder.add(rs.getInt("Sent"));
 			}
 
-			System.out.println("AL : " + userOrderIds.toString());
-
 			// Make query for each order id belonging to user
 			query = (PreparedStatement) conn.prepareStatement(
 				"SELECT * FROM OrderItem WHERE UserOrderId = ?");

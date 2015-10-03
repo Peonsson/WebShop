@@ -96,6 +96,21 @@ public class UserDB extends User {
 		}
 		return;
 	}
+	
+	public static void removeItemFromCart(int userId, int itemId) {
+		Connection conn = DBManager.getConnection();
+		
+		try {
+			PreparedStatement query = (PreparedStatement) conn.prepareStatement("DELETE FROM Cart WHERE UserId = ? AND ItemId = ?");
+			query.setInt(1, userId);
+			query.setInt(2, itemId);
+			query.execute();
+		}
+		catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
 
 	public static User getUser(String username) {
 		Connection conn = DBManager.getConnection();

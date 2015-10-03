@@ -44,6 +44,11 @@ public class UserHandler {
 		return;
 	}
 	
+	public static void removeItemFromCart(int userId, int itemId) {
+		UserDB.removeItemFromCart(userId, itemId);
+		return;
+	}
+	
 	public static int modifyUserAccesslevel(int myUserId, int targetUserId, int targetAccesslevel) {
 		
 		if(UserHandler.getUser(myUserId).getAccessLevel() > 2) { //If I am allowed to do this then continue; else return -1
