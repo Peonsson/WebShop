@@ -484,7 +484,6 @@ public class ItemDB extends Item {
 		
 		try {
 			// Set to 1 (sent)
-			System.out.println("orderId = " + orderId);
 			PreparedStatement update = (PreparedStatement) conn.prepareStatement("UPDATE UserOrders SET Sent = 1 WHERE UserOrderId = ?");
 			update.setInt(1, orderId);
 			update.execute();

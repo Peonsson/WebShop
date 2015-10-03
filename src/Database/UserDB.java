@@ -59,8 +59,6 @@ public class UserDB extends User {
 				myList.add(new Item(itemId, name, price, quantity));
 			}
 			
-			System.out.println("UserDB ArrayList : " + myList.toString());
-			
 			return myList;
 		}
 		catch (SQLException e) {
