@@ -290,6 +290,7 @@ public class ItemDB extends Item {
 			// Reset cursor if there are results
 			myResultSet.beforeFirst();
 
+			// TRANSACTION START
 			conn.setAutoCommit(false);
 			Statement stmt = conn.createStatement();
 
@@ -326,20 +327,24 @@ public class ItemDB extends Item {
 			}
 
 			conn.commit();
-
-		} catch (SQLException e) {
+			// TRANSACTION END
+		}
+		catch (SQLException e) {
 			try {
-			conn.rollback();
-			} catch (SQLException e1) {
-			e1.printStackTrace();
+				conn.rollback();
+			}
+			catch (SQLException e1) {
+				e1.printStackTrace();
 			}
 			e.printStackTrace();
 			return;
-		} finally {
+		}
+		finally {
 			try {
-			conn.setAutoCommit(true);
-			} catch (SQLException e) {
-			e.printStackTrace();
+				conn.setAutoCommit(true);
+			}
+			catch (SQLException e) {
+				e.printStackTrace();
 			}
 		}
 		return;
