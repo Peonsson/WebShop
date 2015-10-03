@@ -5,7 +5,7 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<link rel="stylesheet" type="text/css" href="stylesheets/styles.css">
+<link rel="stylesheet" href="stylesheets/styles.css" type="text/css">
 <title>Web shop</title>
 </head>
 <body>
