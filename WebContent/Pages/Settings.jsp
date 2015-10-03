@@ -14,8 +14,7 @@
 		%>
 		<a class="menuButton"
 			href="/WebShop/cart?userId=<%out.print(session.getAttribute("loggedInUser"));%>">Cart</a>
-		<a class="menuButton"
-			href="/WebShop/Orders?userId=<%out.print(session.getAttribute("loggedInUser"));%>">Orders</a>
+		<a class="menuButton" href="/WebShop/Orders">Orders</a>
 		<%
 			}
 

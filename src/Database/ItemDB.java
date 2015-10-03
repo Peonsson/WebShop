@@ -72,12 +72,12 @@ public class ItemDB extends Item {
 		}
 		return null;
 	}
-	
-public static int addItemToShop(Item item) {
-		
-		if(item == null)
+
+	public static int addItemToShop(Item item) {
+
+		if (item == null)
 			return -1;
-		
+
 		String name = item.getName();
 		float price = item.getPrice();
 		int quantity = item.getQuantity();
@@ -87,31 +87,38 @@ public static int addItemToShop(Item item) {
 		try {
 			Statement stmt = conn.createStatement();
 			int categoryId = -1;
-			
-			String getOrSetCategoryQuery = "SELECT * FROM Category WHERE Name = '" + category + "'";
+
+			String getOrSetCategoryQuery = "SELECT * FROM Category WHERE Name = '"
+				+ category + "'";
 			ResultSet rs = stmt.executeQuery(getOrSetCategoryQuery);
-			
-			if(rs.next()) { //if categoryId exists - get it; else create it
-				categoryId = rs.getInt("CategoryId");
-				
+
+			if (rs.next()) { // if categoryId exists - get it; else create it
+			categoryId = rs.getInt("CategoryId");
+
 			} else {
-				
-				String createCategory = "INSERT INTO Category (Name) VALUES ('" + category + "')";
-				stmt.execute(createCategory); // create the category
 
-				String getOrSetCategoryQuery2 = "SELECT * FROM Category WHERE Name = '" + category + "'";
-				ResultSet rs3 = stmt.executeQuery(getOrSetCategoryQuery2); //get new categoryId
+			String createCategory = "INSERT INTO Category (Name) VALUES ('"
+					+ category + "')";
+			stmt.execute(createCategory); // create the category
 
-				if(rs3.next()){
-					categoryId = rs3.getInt("CategoryId");
-				}
+			String getOrSetCategoryQuery2 = "SELECT * FROM Category WHERE Name = '"
+					+ category + "'";
+			ResultSet rs3 = stmt.executeQuery(getOrSetCategoryQuery2); // get
+																		// new
+																		// categoryId
+
+			if (rs3.next()) {
+				categoryId = rs3.getInt("CategoryId");
 			}
-			
-			String query = "INSERT INTO Item (Name, Price, Quantity, Category) VALUES ('" + name + "', " + price + ", " + quantity + ", " + categoryId +")";
+			}
+
+			String query = "INSERT INTO Item (Name, Price, Quantity, Category) VALUES ('"
+				+ name + "', " + price + ", " + quantity + ", " + categoryId
+				+ ")";
 			stmt.execute(query);
 
 			return 0;
-			
+
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
@@ -218,10 +225,10 @@ public static int addItemToShop(Item item) {
 	}
 
 	public static int modifyItem(Item item) {
-		
-		if(item == null)
+
+		if (item == null)
 			return -1;
-		
+
 		int itemId = item.getItemId();
 		String category = item.getCategory();
 		String name = item.getName();
@@ -233,30 +240,32 @@ public static int addItemToShop(Item item) {
 			conn.setAutoCommit(false);
 			Statement stmt = conn.createStatement();
 			int categoryId = -1;
-			
-			String getOrSetCategoryQuery = "SELECT * FROM Category WHERE Name = '" + category + "'";
+
+			String getOrSetCategoryQuery = "SELECT * FROM Category WHERE Name = '"
+				+ category + "'";
 			ResultSet rs = stmt.executeQuery(getOrSetCategoryQuery);
-			
-			if(rs.next()) { //if categoryId exists - get it; else create it
-				categoryId = rs.getInt("CategoryId");
-				
+
+			if (rs.next()) { // if categoryId exists - get it; else create it
+			categoryId = rs.getInt("CategoryId");
+
 			} else {
-				String createCategory = "INSERT INTO Category (Name) VALUES ('" + category + "')";
-				stmt.execute(createCategory); // create the category
-				
-				String getOrSetCategoryQuery2 = "SELECT * FROM Category WHERE Name = '" + category + "'";
-				ResultSet rs3 = stmt.executeQuery(getOrSetCategoryQuery2); //get new categoryId
-				if(rs3.next())
-					categoryId = rs3.getInt("CategoryId");
+			String createCategory = "INSERT INTO Category (Name) VALUES ('"
+					+ category + "')";
+			stmt.execute(createCategory); // create the category
+
+			String getOrSetCategoryQuery2 = "SELECT * FROM Category WHERE Name = '"
+					+ category + "'";
+			ResultSet rs3 = stmt.executeQuery(getOrSetCategoryQuery2); // get
+																		// new
+																		// categoryId
+			if (rs3.next())
+				categoryId = rs3.getInt("CategoryId");
 			}
-			
-			String query = "UPDATE Item SET " +
-					"Name = '" + name + "', " +
-					"Price = " + price + ", " +
-					"Quantity = " + quantity + ", " +
-					"Category = " + categoryId +
-					" WHERE ItemId = " + itemId;
-			
+
+			String query = "UPDATE Item SET " + "Name = '" + name + "', "
+				+ "Price = " + price + ", " + "Quantity = " + quantity + ", "
+				+ "Category = " + categoryId + " WHERE ItemId = " + itemId;
+
 			stmt.execute(query);
 			conn.commit();
 			conn.setAutoCommit(true);
@@ -266,107 +275,140 @@ public static int addItemToShop(Item item) {
 		}
 		return -1;
 	}
-	
+
 	public static void createOrder(int myUserId, ResultSet myResultSet) {
-		
-		System.out.println("got here!");
+
 		Connection conn = DBManager.getConnection();
-		int sent = 0; //not sent yet
-		
+		int sent = 0; // not sent yet
+
 		try {
-			
+			if (myResultSet.next() == false) {
+				System.out.println("Nothing in cart");
+				return;
+			}
+
+			// Reset cursor if there are results
+			myResultSet.beforeFirst();
+
 			conn.setAutoCommit(false);
 			Statement stmt = conn.createStatement();
+
+			// Create new order
+			String query1 = "INSERT INTO UserOrders (UserId, Sent) VALUES ("
+				+ myUserId + ", " + sent + ")";
+			stmt.execute(query1);
+
+			// Get last added order
+			String query2 = "SELECT UserOrderId FROM UserOrders ORDER BY UserOrderId DESC LIMIT 1";
+			ResultSet rs = stmt.executeQuery(query2);
+			int userOrderId = 0;
 			
-			if(myResultSet == null)
-				System.out.println("myResultSet = NULL");
-			
-			while(myResultSet.next()) {
-				String query = "UPDATE Item SET Quantity = Quantity - " + myResultSet.getInt("Quantity") + " WHERE ItemId = " + myResultSet.getInt("ItemId");
-				String query2 = "INSERT INTO Orders (UserId, ItemId, Sent, Quantity) VALUES (" + myUserId + ", " + myResultSet.getInt("ItemId") + ", " + sent + ", " + myResultSet.getInt("Quantity") + ")"; 
-				String query3 = "DELETE FROM Cart WHERE UserId = " + myUserId;
-				stmt.execute(query);
-				stmt.execute(query2);
-				stmt.execute(query3);
+			if (rs.next()) {
+				userOrderId = rs.getInt("UserOrderId");
 			}
-			
+
+			while (myResultSet.next()) {
+				String query3 = "UPDATE Item SET Quantity = Quantity - "
+						+ myResultSet.getInt("Quantity") + " WHERE ItemId = "
+						+ myResultSet.getInt("ItemId");
+				stmt.execute(query3);
+	
+				// Add order items
+				String query4 = "INSERT INTO OrderItem (UserOrderId, ItemId, Quantity) VALUES ("
+						+ userOrderId + ", "
+						+ myResultSet.getInt("ItemId") + ", "
+						+ myResultSet.getInt("Quantity") + ")";
+				stmt.execute(query4);
+	
+				// Delete from cart
+				String query5 = "DELETE FROM Cart WHERE UserId = " + myUserId;
+				stmt.execute(query5);
+			}
+
 			conn.commit();
-			
+
 		} catch (SQLException e) {
 			try {
-				conn.rollback();
+			conn.rollback();
 			} catch (SQLException e1) {
-				e1.printStackTrace();
+			e1.printStackTrace();
 			}
 			e.printStackTrace();
 			return;
 		} finally {
 			try {
-				conn.setAutoCommit(true);
+			conn.setAutoCommit(true);
 			} catch (SQLException e) {
-				e.printStackTrace();
+			e.printStackTrace();
 			}
 		}
 		return;
 	}
-	
+
 	public static ArrayList<Order> getUserOrders(int userId) {
 		ArrayList<Integer> userOrderIds = new ArrayList<>();
 		ArrayList<Integer> sendStatusOrder = new ArrayList<>();
 		ArrayList<Order> orders = new ArrayList<>();
-		
+
 		Connection conn = DBManager.getConnection();
-		
+
 		try {
-			PreparedStatement query = (PreparedStatement) conn.prepareStatement("SELECT * FROM UserOrders WHERE UserId = ?");
+			PreparedStatement query = (PreparedStatement) conn
+				.prepareStatement("SELECT * FROM UserOrders WHERE UserId = ?");
 			query.setInt(1, userId);
 			ResultSet rs = query.executeQuery();
-			
+
 			// Add order ids belonging to a user into list
 			while (rs.next()) {
-				userOrderIds.add(rs.getInt("UserOrderId"));
-				sendStatusOrder.add(rs.getInt("Sent"));
+			userOrderIds.add(rs.getInt("UserOrderId"));
+			sendStatusOrder.add(rs.getInt("Sent"));
 			}
-			
+
 			System.out.println("AL : " + userOrderIds.toString());
-			
+
 			// Make query for each order id belonging to user
-			query = (PreparedStatement) conn.prepareStatement("SELECT * FROM OrderItem WHERE UserOrderId = ?");
+			query = (PreparedStatement) conn.prepareStatement(
+				"SELECT * FROM OrderItem WHERE UserOrderId = ?");
 			for (int i = 0; i < userOrderIds.size(); i++) {
-				ArrayList<Item> items = new ArrayList<>();
-				
-				query.setInt(1, userOrderIds.get(i));
-				rs = query.executeQuery();
-				
-				while (rs.next()) {
-					// Get the item in the order
-					PreparedStatement query1 = (PreparedStatement) conn.prepareStatement("SELECT ItemId, Name, Price, Category FROM Item WHERE ItemId = ?");
-					query1.setInt(1, rs.getInt("ItemId"));
-					ResultSet rs1 = query1.executeQuery();
-					rs1.next();
-					
-					int itemId = rs1.getInt("ItemId");
-					String name = rs1.getString("Name");
-					float price = rs1.getFloat("Price");
-					int quantity = rs.getInt("Quantity");
-					int category = rs1.getInt("Category");
-					
-					// Get the category name string
-					PreparedStatement query2 = (PreparedStatement) conn.prepareStatement("SELECT Name FROM Category WHERE CategoryId = ?");
-					query2.setInt(1, category);
-					ResultSet rs2 = query2.executeQuery();
-					rs2.next();
-					
-					items.add(new Item(itemId, name, price, quantity, rs2.getString("Name")));
-				}
-				
-				orders.add(new Order(userOrderIds.get(i), userId, items, sendStatusOrder.get(i)));
+			ArrayList<Item> items = new ArrayList<>();
+
+			query.setInt(1, userOrderIds.get(i));
+			rs = query.executeQuery();
+
+			while (rs.next()) {
+				// Get the item in the order
+				PreparedStatement query1 = (PreparedStatement) conn
+						.prepareStatement(
+								"SELECT ItemId, Name, Price, Category FROM Item WHERE ItemId = ?");
+				query1.setInt(1, rs.getInt("ItemId"));
+				ResultSet rs1 = query1.executeQuery();
+				rs1.next();
+
+				int itemId = rs1.getInt("ItemId");
+				String name = rs1.getString("Name");
+				float price = rs1.getFloat("Price");
+				int quantity = rs.getInt("Quantity");
+				int category = rs1.getInt("Category");
+
+				// Get the category name string
+				PreparedStatement query2 = (PreparedStatement) conn
+						.prepareStatement(
+								"SELECT Name FROM Category WHERE CategoryId = ?");
+				query2.setInt(1, category);
+				ResultSet rs2 = query2.executeQuery();
+				rs2.next();
+
+				items.add(new Item(itemId, name, price, quantity,
+						rs2.getString("Name")));
 			}
-		}
-		catch (SQLException e) {
+
+			orders.add(new Order(userOrderIds.get(i), userId, items,
+					sendStatusOrder.get(i)));
+			}
+		} catch (SQLException e) {
 			e.printStackTrace();
 		}
-		
+
 		return orders;
 	}
 

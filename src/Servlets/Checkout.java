@@ -23,7 +23,6 @@ public class Checkout extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		int userId = Integer.parseInt(request.getParameter("loggedInUser"));
 		ItemHandler.createOrder(userId);
-		// TODO: Waiting for BO logic to list orders
-		response.getWriter().append("No BO logic to list orders.");
+		response.sendRedirect("/WebShop/Orders");
 	}
 }

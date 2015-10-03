@@ -74,6 +74,7 @@ public class ItemHandler {
 	public static void createOrder(int myUserId) {
 		
 		ResultSet rs = ItemDB.getCart(myUserId);
+		System.out.println("result set done");
 		ItemDB.createOrder(myUserId, rs);
 		return;
 	}

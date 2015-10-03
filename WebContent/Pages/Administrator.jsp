@@ -15,8 +15,7 @@
 		%>
 		<a class="menuButton"
 			href="/WebShop/cart?userId=<%out.print(session.getAttribute("loggedInUser"));%>">Cart</a>
-		<a class="menuButton"
-			href="/WebShop/Orders?userId=<%out.print(session.getAttribute("loggedInUser"));%>">Orders</a>
+		<a class="menuButton" href="/WebShop/Orders">Orders</a>
 		<%
 			}
 
@@ -39,8 +38,7 @@
 			}
 		%>
 	</div>
-	<br>
-	Select item to edit
+	<br> Select item to edit
 	<table>
 		<tr>
 			<td>Name</td>
@@ -67,8 +65,7 @@
 	<%
 		if ((int) session.getAttribute("accessLevel") > 2) {
 	%>
-	<br>
-	Select user to edit
+	<br> Select user to edit
 	<table>
 		<tr>
 			<td>User ID</td>
@@ -100,23 +97,25 @@
 
 	<%
 		}
-	
+
 		else if ((int) session.getAttribute("accessLevel") == 2) {
 	%>
-		
-	<% } %>
-	
+
+	<%
+		}
+	%>
+
 	<br> Add new item:
 	<form method="post" action="AddItemToShop">
-	
-		Name <input type="text" name="name"><br/>
-		Quantity <input type="text" name="quantity"><br/>
-		Price <input type="text" name="price"><br/>
-		Category <input type="text" name="category"><br/>
-		
+
+		Name <input type="text" name="name"><br /> Quantity <input
+			type="text" name="quantity"><br /> Price <input type="text"
+			name="price"><br /> Category <input type="text"
+			name="category"><br />
+
 		<button>Add</button>
-	
+
 	</form>
-	
+
 </body>
 </html>
