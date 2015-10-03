@@ -41,7 +41,7 @@
 		%>
 	</div>
 
-	<a href="/WebShop/Administrator">Go back</a>
+	<a href="/WebShop/Administration">Go back</a>
 	<form method="post" action="EditItem">
 		Name: <input type="text" name="name" value="${item.name}">
 		Price: <input type="text" name="price" value="${item.price}">
