@@ -24,7 +24,14 @@ public class AddItemToCart extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		int userId = Integer.parseInt(request.getParameter("loggedInUser"));
 		int itemId = Integer.parseInt(request.getParameter("itemId"));
-		int quantity = Integer.parseInt(request.getParameter("quantity"));
+		int quantity;
+		try {
+			quantity = Integer.parseInt(request.getParameter("quantity"));
+		}
+		catch (NumberFormatException nfe) {
+			quantity = 1;
+		}
+
 		
 		UserHandler.addItemToCart(userId, itemId, quantity);
 		response.sendRedirect("/WebShop/");

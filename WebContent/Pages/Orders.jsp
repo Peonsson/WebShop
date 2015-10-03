@@ -57,7 +57,10 @@
 				<c:forEach var="item" items="${order.items}">
 					<tr>
 						<td><c:out value="${item.name}"></c:out></td>
-						<td><c:out value="${item.price}"></c:out></td>
+						<td>
+							<c:out value="${item.price * item.quantity}">asd</c:out>
+							(<c:out value="${item.price}"></c:out> each)
+						</td>
 						<td><c:out value="${item.quantity}"></c:out></td>
 						<td><c:out value="${item.category}"></c:out></td>
 					</tr>
