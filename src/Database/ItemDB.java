@@ -360,48 +360,45 @@ public class ItemDB extends Item {
 
 			// Add order ids belonging to a user into list
 			while (rs.next()) {
-			userOrderIds.add(rs.getInt("UserOrderId"));
-			sendStatusOrder.add(rs.getInt("Sent"));
+				userOrderIds.add(rs.getInt("UserOrderId"));
+				sendStatusOrder.add(rs.getInt("Sent"));
 			}
 
-			// Make query for each order id belonging to user
-			query = (PreparedStatement) conn.prepareStatement(
-				"SELECT * FROM OrderItem WHERE UserOrderId = ?");
+			// Make query for each order item belonging to order
+			query = (PreparedStatement) conn.prepareStatement("SELECT * FROM OrderItem WHERE UserOrderId = ?");
 			for (int i = 0; i < userOrderIds.size(); i++) {
-			ArrayList<Item> items = new ArrayList<>();
+				ArrayList<Item> items = new ArrayList<>();
 
-			query.setInt(1, userOrderIds.get(i));
-			rs = query.executeQuery();
+				query.setInt(1, userOrderIds.get(i));
+				rs = query.executeQuery();
+	
+				while (rs.next()) {
+					// Get the item in the order
+					PreparedStatement query1 = (PreparedStatement) conn
+							.prepareStatement(
+									"SELECT ItemId, Name, Price, Category FROM Item WHERE ItemId = ?");
+					query1.setInt(1, rs.getInt("ItemId"));
+					ResultSet rs1 = query1.executeQuery();
+					rs1.next();
+	
+					int itemId = rs1.getInt("ItemId");
+					String name = rs1.getString("Name");
+					float price = rs1.getFloat("Price");
+					int quantity = rs.getInt("Quantity");
+					int category = rs1.getInt("Category");
+	
+					// Get the category name string
+					PreparedStatement query2 = (PreparedStatement) conn
+							.prepareStatement(
+									"SELECT Name FROM Category WHERE CategoryId = ?");
+					query2.setInt(1, category);
+					ResultSet rs2 = query2.executeQuery();
+					rs2.next();
+	
+					items.add(new Item(itemId, name, price, quantity, rs2.getString("Name")));
+				}
 
-			while (rs.next()) {
-				// Get the item in the order
-				PreparedStatement query1 = (PreparedStatement) conn
-						.prepareStatement(
-								"SELECT ItemId, Name, Price, Category FROM Item WHERE ItemId = ?");
-				query1.setInt(1, rs.getInt("ItemId"));
-				ResultSet rs1 = query1.executeQuery();
-				rs1.next();
-
-				int itemId = rs1.getInt("ItemId");
-				String name = rs1.getString("Name");
-				float price = rs1.getFloat("Price");
-				int quantity = rs.getInt("Quantity");
-				int category = rs1.getInt("Category");
-
-				// Get the category name string
-				PreparedStatement query2 = (PreparedStatement) conn
-						.prepareStatement(
-								"SELECT Name FROM Category WHERE CategoryId = ?");
-				query2.setInt(1, category);
-				ResultSet rs2 = query2.executeQuery();
-				rs2.next();
-
-				items.add(new Item(itemId, name, price, quantity,
-						rs2.getString("Name")));
-			}
-
-			orders.add(new Order(userOrderIds.get(i), userId, items,
-					sendStatusOrder.get(i)));
+				orders.add(new Order(userOrderIds.get(i), userId, items,sendStatusOrder.get(i)));
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -410,6 +407,85 @@ public class ItemDB extends Item {
 		return orders;
 	}
 
+	public static ArrayList<Order> getAllUnhandledOrders() {
+		ArrayList<Order> orders = new ArrayList<>();
+		ArrayList<Integer> userOrderIds = new ArrayList<>();
+		ArrayList<Integer> userIds = new ArrayList<>();
+		ArrayList<Integer> sendStatusOrder = new ArrayList<>();
+		
+		Connection conn = DBManager.getConnection();
+		
+		try {
+			// Find orders where sent status = 0 (not sent)
+			PreparedStatement query = (PreparedStatement) conn.prepareStatement("SELECT * FROM UserOrders WHERE Sent = ?");
+			query.setInt(1, 0);
+			ResultSet rs = query.executeQuery();
+
+			// Add order ids that haven't been sent to a list
+			while (rs.next()) {
+				userOrderIds.add(rs.getInt("UserOrderId"));
+				userIds.add(rs.getInt("UserId"));
+				sendStatusOrder.add(rs.getInt("Sent"));
+			}
+			
+			
+			// Make query for each order item belonging to non-sent order
+			query = (PreparedStatement) conn.prepareStatement("SELECT * FROM OrderItem WHERE UserOrderId = ?");
+			for (int i = 0; i < userOrderIds.size(); i++) {
+				ArrayList<Item> items = new ArrayList<>();
+		
+				query.setInt(1, userOrderIds.get(i));
+				rs = query.executeQuery();
+		
+				while (rs.next()) {
+					// Get the item in the order
+					PreparedStatement query1 = (PreparedStatement) conn.prepareStatement("SELECT ItemId, Name, Price, Category FROM Item WHERE ItemId = ?");
+					query1.setInt(1, rs.getInt("ItemId"));
+					ResultSet rs1 = query1.executeQuery();
+					rs1.next();
+		
+					int itemId = rs1.getInt("ItemId");
+					String name = rs1.getString("Name");
+					float price = rs1.getFloat("Price");
+					int quantity = rs.getInt("Quantity");
+					int category = rs1.getInt("Category");
+		
+					// Get the category name string
+					PreparedStatement query2 = (PreparedStatement) conn
+							.prepareStatement(
+									"SELECT Name FROM Category WHERE CategoryId = ?");
+					query2.setInt(1, category);
+					ResultSet rs2 = query2.executeQuery();
+					rs2.next();
+		
+					items.add(new Item(itemId, name, price, quantity, rs2.getString("Name")));
+				}
+		
+				orders.add(new Order(userOrderIds.get(i), userIds.get(i), items, sendStatusOrder.get(i)));
+			}
+		}
+		catch (SQLException e) {
+			e.printStackTrace();
+		}
+		
+		return orders;
+	}
+	
+	public static void changeOrderStatus(int orderId) {
+		Connection conn = DBManager.getConnection();
+		
+		try {
+			// Set to 1 (sent)
+			System.out.println("orderId = " + orderId);
+			PreparedStatement update = (PreparedStatement) conn.prepareStatement("UPDATE UserOrders SET Sent = 1 WHERE UserOrderId = ?");
+			update.setInt(1, orderId);
+			update.execute();
+		}
+		catch (SQLException e) {
+			e.printStackTrace();
+		}
+	}
+	
 	public static ResultSet getCart(int myUserId) {
 		Connection conn = DBManager.getConnection();
 		try {

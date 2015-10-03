@@ -39,30 +39,36 @@
 			}
 		%>
 	</div>
-
-	<c:forEach var="order" items="${orders}">
-		Order <c:out value="${order.orderId}"></c:out> (<c:choose>
-			<c:when test="${order.sent == 1}">Sent</c:when>
-			<c:when test="${order.sent == 0}">Not sent</c:when>
-		</c:choose>):
-		<table>
-			<tr>
-				<td>Name</td>
-				<td>Price</td>
-				<td>Quantity</td>
-				<td>Category</td>
-			</tr>
-			<c:forEach var="item" items="${order.items}">
+	
+	<c:choose>
+		<c:when test="${not empty orders}">
+			<c:forEach var="order" items="${orders}">
+				Order #<c:out value="${order.orderId}"></c:out> (<c:choose>
+				<c:when test="${order.sent == 1}">Sent</c:when>
+				<c:when test="${order.sent == 0}">Not sent</c:when>
+			</c:choose>):
+			<table>
 				<tr>
-					<td><c:out value="${item.name}"></c:out></td>
-					<td><c:out value="${item.price}"></c:out></td>
-					<td><c:out value="${item.quantity}"></c:out></td>
-					<td><c:out value="${item.category}"></c:out></td>
+					<td>Name</td>
+					<td>Price</td>
+					<td>Quantity</td>
+					<td>Category</td>
 				</tr>
+				<c:forEach var="item" items="${order.items}">
+					<tr>
+						<td><c:out value="${item.name}"></c:out></td>
+						<td><c:out value="${item.price}"></c:out></td>
+						<td><c:out value="${item.quantity}"></c:out></td>
+						<td><c:out value="${item.category}"></c:out></td>
+					</tr>
+				</c:forEach>
+			</table>
+			<br />
 			</c:forEach>
-		</table>
-		<br />
-	</c:forEach>
-
+		</c:when>
+		<c:when test="${empty orders}">
+			No orders have been made!
+		</c:when>
+	</c:choose>
 </body>
 </html>

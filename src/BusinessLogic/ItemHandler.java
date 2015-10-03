@@ -72,15 +72,27 @@ public class ItemHandler {
 	}
 	
 	public static void createOrder(int myUserId) {
-		
 		ResultSet rs = ItemDB.getCart(myUserId);
-		System.out.println("result set done");
 		ItemDB.createOrder(myUserId, rs);
+		return;
+	}
+	
+	public static void dispatchOrder(int orderId, int accessLevel) {
+		// If user is a warehouse worker
+		if (accessLevel == 2) {
+			ItemDB.changeOrderStatus(orderId);
+		}
+		
 		return;
 	}
 	
 	public static ArrayList<Order> getUserOrders(int userId) {
 		ArrayList<Order> orders = ItemDB.getUserOrders(userId);
+		return orders;
+	}
+	
+	public static ArrayList<Order> getAllUnhandledOrders() {
+		ArrayList<Order> orders = ItemDB.getAllUnhandledOrders();
 		return orders;
 	}
 	

@@ -38,7 +38,8 @@
 			}
 		%>
 	</div>
-	<br> Select item to edit
+	<h2>Items</h2>
+	Select item to edit
 	<table>
 		<tr>
 			<td>Item ID</td>
@@ -79,7 +80,8 @@
 	<%
 		if ((int) session.getAttribute("accessLevel") > 2) {
 	%>
-	<br> Select user to edit
+	<h2>Users</h2>
+	Select user to edit
 	<table>
 		<tr>
 			<td>User ID</td>
@@ -113,7 +115,35 @@
 		}
 		else if ((int) session.getAttribute("accessLevel") == 2) {
 	%>
-		warehouse worker
+		<h2>Orders</h2>
+		<!-- 	TODO: Username instead of user id -->
+		<c:forEach var="order" items="${orders}">
+			Order #<c:out value="${order.orderId}"></c:out> from User <c:out value="${order.userId}"></c:out> (<c:choose>
+				<c:when test="${order.sent == 1}">Sent</c:when>
+				<c:when test="${order.sent == 0}">Not sent</c:when>
+			</c:choose>):
+			<table>
+				<tr>
+					<td>Name</td>
+					<td>Price</td>
+					<td>Quantity</td>
+					<td>Category</td>
+				</tr>
+				<c:forEach var="item" items="${order.items}">
+					<tr>
+						<td><c:out value="${item.name}"></c:out></td>
+						<td><c:out value="${item.price}"></c:out></td>
+						<td><c:out value="${item.quantity}"></c:out></td>
+						<td><c:out value="${item.category}"></c:out></td>
+					</tr>
+				</c:forEach>
+			</table>
+			<form method="post" action="DispatchOrder">
+				<input type="hidden" name="orderId" value="${order.orderId}"/>
+				<button>Dispatch order</button>
+			</form>
+			<br />
+		</c:forEach>
 	<%
 		}
 	%>

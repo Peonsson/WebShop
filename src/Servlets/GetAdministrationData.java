@@ -11,6 +11,7 @@ import javax.servlet.http.HttpSession;
 
 import BusinessLogic.Item;
 import BusinessLogic.ItemHandler;
+import BusinessLogic.Order;
 import BusinessLogic.User;
 import BusinessLogic.UserHandler;
 
@@ -38,7 +39,8 @@ public class GetAdministrationData extends HttpServlet {
 		}
 		else if (accessLevel == 2) {
 			// Get order list (for warehouse workers)
-			// TODO: Waiting for BO logic for listing orders
+			List<Order> orders = ItemHandler.getAllUnhandledOrders();
+			request.setAttribute("orders", orders);
 		}
 
 		request.getRequestDispatcher("/Pages/Administrator.jsp").forward(request, response);		
