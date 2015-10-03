@@ -69,25 +69,59 @@ public class ItemDB extends Item {
 		}
 		return null;
 	}
-
-	public static void addItemToShop(Item item) {
-
-		Connection conn = DBManager.getConnection();
+	
+public static int addItemToShop(Item item) {
+		
+		if(item == null)
+			return -1;
+		
 		String name = item.getName();
 		float price = item.getPrice();
 		int quantity = item.getQuantity();
 		String category = item.getCategory();
 
+		Connection conn = DBManager.getConnection();
 		try {
 			Statement stmt = conn.createStatement();
-			String query = "INSERT INTO Item (Name, Price, Quantity, Category) VALUES ('"
-				+ name + "', " + price + "," + quantity + ", " + category + ");";
+			int categoryId = -1;
+			
+			String getOrSetCategoryQuery = "SELECT * FROM Category WHERE Name = '" + category + "'";
+			ResultSet rs = stmt.executeQuery(getOrSetCategoryQuery);
+			
+			if(rs.next()) { //if categoryId exists - get it; else create it
+				
+				categoryId = rs.getInt("CategoryId");
+				System.out.println("got here 1");
+				
+			} else {
+				
+				System.out.println("got here 2");
+				String createCategory = "INSERT INTO Category (Name) VALUES ('" + category + "')";
+				stmt.execute(createCategory); // create the category
+				System.out.println("got here 3");
+
+				String getOrSetCategoryQuery2 = "SELECT * FROM Category WHERE Name = '" + category + "'";
+				ResultSet rs3 = stmt.executeQuery(getOrSetCategoryQuery2); //get new categoryId
+				System.out.println("got here 4");
+
+				if(rs3.next()){
+					categoryId = rs3.getInt("CategoryId");
+					System.out.println("got here 5");
+				}
+			}
+			
+			System.out.println("got here 6");
+			String query = "INSERT INTO Item (Name, Price, Quantity, Category) VALUES ('" + name + "', " + price + ", " + quantity + ", " + categoryId +")";
+			
 			stmt.execute(query);
-			return;
+			System.out.println("got here 7");
+
+			return 0;
+			
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
-		return;
+		return -1;
 	}
 
 	public static void removeItemFromShop(int itemId) {
@@ -219,7 +253,7 @@ public class ItemDB extends Item {
 				String getOrSetCategoryQuery2 = "SELECT * FROM Category WHERE Name = '" + category + "'";
 				ResultSet rs3 = stmt.executeQuery(getOrSetCategoryQuery2); //get new categoryId
 				if(rs3.next())
-					categoryId = rs.getInt("CategoryId");
+					categoryId = rs3.getInt("CategoryId");
 			}
 			
 			String query = "UPDATE Item SET " +

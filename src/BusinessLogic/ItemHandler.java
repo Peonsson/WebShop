@@ -45,7 +45,6 @@ public class ItemHandler {
 	public static int addItemToShop(int userId, String name, float price, int quantity, String category) {
 		
 		if(UserHandler.getUser(userId).getAccessLevel() > 1) { //If I am allowed to do this then continue; else return -1
-			
 			Item item = new Item(name, price, quantity, category);
 			ItemDB.addItemToShop(item);
 			return 0;
