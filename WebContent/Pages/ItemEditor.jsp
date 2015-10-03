@@ -45,13 +45,8 @@
 		Name: <input type="text" name="name" value="${item.name}">
 		Price: <input type="text" name="price" value="${item.price}">
 		Quantity: <input type="text" name="quantity" value="${item.quantity}">
-		Category <select name="category">
-			<option value="computer">Computer</option>
-			<option value="food">Food</option>
-			<option value="phone">Phone</option>
-			<option value="tool">Tool</option>
-			<option value="vehicle">Vehicle</option>
-		</select>Remove<input name="remove" type="checkbox"> <br /> <input
+		Category <input type="text" name="category">
+		Remove<input name="remove" type="checkbox"> <br /> <input
 			type="hidden" name="itemId" value="${item.itemId}" /> <input
 			type="hidden" name="loggedInUser"
 			value="<%out.print(session.getAttribute("loggedInUser"));%>" />
