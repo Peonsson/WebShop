@@ -6,6 +6,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import BusinessLogic.ItemHandler;
 
@@ -17,19 +18,18 @@ public class AddItemToShop extends HttpServlet {
         super();
     }
 
-	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+
+	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+	
+		HttpSession session = request.getSession();
+		int userId = (int) session.getAttribute("loggedInUser");
 		
-		int userId = Integer.parseInt(request.getParameter("loggedInUser"));
 		String name = request.getParameter("name");
 		int quantity = Integer.parseInt(request.getParameter("quantity"));
 		float price = Float.parseFloat(request.getParameter("price"));
 		String category = request.getParameter("category");
 		
 		ItemHandler.addItemToShop(userId, name, price, quantity, category);
-		response.getWriter().append("Added item to shop!"); //TODO: change this
-	}
-
-	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		doGet(request, response);
+		response.sendRedirect("/WebShop/Administration");
 	}
 }

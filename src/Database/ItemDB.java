@@ -80,9 +80,9 @@ public class ItemDB extends Item {
 
 		try {
 			Statement stmt = conn.createStatement();
-			String query = "INSERT INTO Item (Name, Price, Quantity, Category) VALUES ("
-				+ name + ", " + price + "," + quantity + ", " + category + ");";
-			stmt.executeQuery(query);
+			String query = "INSERT INTO Item (Name, Price, Quantity, Category) VALUES ('"
+				+ name + "', " + price + "," + quantity + ", " + category + ");";
+			stmt.execute(query);
 			return;
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -199,19 +199,39 @@ public class ItemDB extends Item {
 		String name = item.getName();
 		float price = item.getPrice();
 		int quantity = item.getQuantity();
-		
-		System.out.println("itemId = " + itemId);
 
 		Connection conn = DBManager.getConnection();
-		try {			
+		try {
+			conn.setAutoCommit(false);
 			Statement stmt = conn.createStatement();
+			int categoryId = -1;
+			
+			String getOrSetCategoryQuery = "SELECT * FROM Category WHERE Name = '" + category + "'";
+			ResultSet rs = stmt.executeQuery(getOrSetCategoryQuery);
+			
+			if(rs.next()) { //if categoryId exists - get it; else create it
+				categoryId = rs.getInt("CategoryId");
+				
+			} else {
+				String createCategory = "INSERT INTO Category (Name) VALUES ('" + category + "')";
+				stmt.execute(createCategory); // create the category
+				
+				String getOrSetCategoryQuery2 = "SELECT * FROM Category WHERE Name = '" + category + "'";
+				ResultSet rs3 = stmt.executeQuery(getOrSetCategoryQuery2); //get new categoryId
+				if(rs3.next())
+					categoryId = rs.getInt("CategoryId");
+			}
+			
 			String query = "UPDATE Item SET " +
 					"Name = '" + name + "', " +
 					"Price = " + price + ", " +
-					"Quantity = " + quantity +
+					"Quantity = " + quantity + ", " +
+					"Category = " + categoryId +
 					" WHERE ItemId = " + itemId;
 			
 			stmt.execute(query);
+			conn.commit();
+			conn.setAutoCommit(true);
 			return 0;
 		} catch (SQLException e) {
 			e.printStackTrace();
