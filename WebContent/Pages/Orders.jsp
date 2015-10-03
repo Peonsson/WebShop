@@ -20,19 +20,29 @@
 			href="/WebShop/Orders?userId=<%out.print(session.getAttribute("loggedInUser"));%>">Orders</a>
 		<%
 			}
+
+			if ((session.getAttribute("accessLevel") != null)
+				&& ((int) session.getAttribute("accessLevel") > 1)) {
+		%>
+		<a class="menuButton" href="/WebShop/Administration">Administration</a>
+		<%
+			}
+
 			if (session.getAttribute("loggedInUser") != null) {
-		%><a class="logoutButton" href="/WebShop/logout">Logout</a>
+		%>
+		<a class="menuButton" href="/WebShop/Settings">Settings</a> <a
+			class="menuButton" href="/WebShop/logout">Logout</a>
 		<%
 			} else {
-		%><a class="logoutButton" href="/WebShop/login">Login</a>
+		%>
+		<a class="menuButton" href="/WebShop/login">Login</a>
 		<%
 			}
 		%>
 	</div>
-<<<<<<< HEAD
 
 	<c:forEach var="order" items="${orders}">
-		Order (<c:choose>
+		Order <c:out value="${order.orderId}"></c:out> (<c:choose>
 			<c:when test="${order.sent == 1}">Sent</c:when>
 			<c:when test="${order.sent == 0}">Not sent</c:when>
 		</c:choose>):
@@ -51,10 +61,9 @@
 					<td><c:out value="${item.category}"></c:out></td>
 				</tr>
 			</c:forEach>
-
 		</table>
+		<br />
 	</c:forEach>
-=======
->>>>>>> branch 'master' of https://github.com/Peonsson/WebShop.git
+
 </body>
 </html>
