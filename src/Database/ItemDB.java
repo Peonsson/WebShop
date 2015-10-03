@@ -5,14 +5,11 @@ import java.util.Collection;
 import java.util.Vector;
 
 import java.sql.Connection;
-import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 
 import BusinessLogic.Item;
-import BusinessLogic.Order;
-import BusinessLogic.User;
 
 public class ItemDB extends Item {
 	protected ItemDB(int itemId, String name, float price, int quantity) {

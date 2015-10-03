@@ -92,6 +92,12 @@
 
 	<%
 		}
+	
+		else if ((int) session.getAttribute("accessLevel") == 2) {
 	%>
+		you are a warehouse worker
+		
+		
+	<% } %>
 </body>
 </html>

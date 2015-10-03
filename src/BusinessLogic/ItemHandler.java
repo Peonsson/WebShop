@@ -6,7 +6,6 @@ import java.util.Collection;
 import java.util.Hashtable;
 import java.util.Iterator;
 
-import Database.DBManager;
 import Database.ItemDB;
 
 public class ItemHandler {
