@@ -29,6 +29,7 @@
 			}
 		%>
 	</div>
+<<<<<<< HEAD
 
 	<c:forEach var="order" items="${orders}">
 		Order (<c:choose>
@@ -53,5 +54,7 @@
 
 		</table>
 	</c:forEach>
+=======
+>>>>>>> branch 'master' of https://github.com/Peonsson/WebShop.git
 </body>
 </html>

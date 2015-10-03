@@ -72,40 +72,65 @@ public class ItemDB extends Item {
 		}
 		return null;
 	}
-
-	public static void addItemToShop(Item item) {
-
-		Connection conn = DBManager.getConnection();
+	
+public static int addItemToShop(Item item) {
+		
+		if(item == null)
+			return -1;
+		
 		String name = item.getName();
 		float price = item.getPrice();
 		int quantity = item.getQuantity();
 		String category = item.getCategory();
 
+		Connection conn = DBManager.getConnection();
 		try {
 			Statement stmt = conn.createStatement();
-			String query = "INSERT INTO Item (Name, Price, Quantity, Category) VALUES ("
-				+ name + ", " + price + "," + quantity + ", " + category + ");";
-			stmt.executeQuery(query);
-			return;
+			int categoryId = -1;
+			
+			String getOrSetCategoryQuery = "SELECT * FROM Category WHERE Name = '" + category + "'";
+			ResultSet rs = stmt.executeQuery(getOrSetCategoryQuery);
+			
+			if(rs.next()) { //if categoryId exists - get it; else create it
+				categoryId = rs.getInt("CategoryId");
+				
+			} else {
+				
+				String createCategory = "INSERT INTO Category (Name) VALUES ('" + category + "')";
+				stmt.execute(createCategory); // create the category
+
+				String getOrSetCategoryQuery2 = "SELECT * FROM Category WHERE Name = '" + category + "'";
+				ResultSet rs3 = stmt.executeQuery(getOrSetCategoryQuery2); //get new categoryId
+
+				if(rs3.next()){
+					categoryId = rs3.getInt("CategoryId");
+				}
+			}
+			
+			String query = "INSERT INTO Item (Name, Price, Quantity, Category) VALUES ('" + name + "', " + price + ", " + quantity + ", " + categoryId +")";
+			stmt.execute(query);
+
+			return 0;
+			
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
-		return;
+		return -1;
 	}
 
-	public static void removeItemFromShop(int itemId) {
+	public static int removeItemFromShop(int itemId) {
 
 		Connection conn = DBManager.getConnection();
 
 		try {
 			Statement stmt = conn.createStatement();
 			String query = "DELETE FROM Item WHERE ItemId = " + itemId;
-			stmt.executeQuery(query);
-			return;
+			stmt.execute(query);
+			return 0;
 		} catch (SQLException e) {
 			e.printStackTrace();
+			return -1;
 		}
-		return;
 	}
 
 	public static void removeItemFromShop(String name) {
@@ -202,19 +227,39 @@ public class ItemDB extends Item {
 		String name = item.getName();
 		float price = item.getPrice();
 		int quantity = item.getQuantity();
-		
-		System.out.println("itemId = " + itemId);
 
 		Connection conn = DBManager.getConnection();
-		try {			
+		try {
+			conn.setAutoCommit(false);
 			Statement stmt = conn.createStatement();
+			int categoryId = -1;
+			
+			String getOrSetCategoryQuery = "SELECT * FROM Category WHERE Name = '" + category + "'";
+			ResultSet rs = stmt.executeQuery(getOrSetCategoryQuery);
+			
+			if(rs.next()) { //if categoryId exists - get it; else create it
+				categoryId = rs.getInt("CategoryId");
+				
+			} else {
+				String createCategory = "INSERT INTO Category (Name) VALUES ('" + category + "')";
+				stmt.execute(createCategory); // create the category
+				
+				String getOrSetCategoryQuery2 = "SELECT * FROM Category WHERE Name = '" + category + "'";
+				ResultSet rs3 = stmt.executeQuery(getOrSetCategoryQuery2); //get new categoryId
+				if(rs3.next())
+					categoryId = rs3.getInt("CategoryId");
+			}
+			
 			String query = "UPDATE Item SET " +
 					"Name = '" + name + "', " +
 					"Price = " + price + ", " +
-					"Quantity = " + quantity +
+					"Quantity = " + quantity + ", " +
+					"Category = " + categoryId +
 					" WHERE ItemId = " + itemId;
 			
 			stmt.execute(query);
+			conn.commit();
+			conn.setAutoCommit(true);
 			return 0;
 		} catch (SQLException e) {
 			e.printStackTrace();

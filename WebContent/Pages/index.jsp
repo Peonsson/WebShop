@@ -45,6 +45,7 @@
 				}
 			%>
 		</div>
+		<br>
 
 		<div id="main">
 			<table id="itemList">

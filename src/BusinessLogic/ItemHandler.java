@@ -82,4 +82,12 @@ public class ItemHandler {
 		ArrayList<Order> orders = ItemDB.getUserOrders(userId);
 		return orders;
 	}
+	
+	public static int removeItemFromShop(int userId, int itemId) {
+	
+		if(UserHandler.getUser(userId).getAccessLevel() > 1) {	//If I am allowed to do this then continue; else return -1
+			return ItemDB.removeItemFromShop(itemId);
+		}
+		return -1;
+	}
 }
