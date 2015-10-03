@@ -27,13 +27,12 @@ public class EditUser extends HttpServlet {
 		String password = request.getParameter("password");
 		int accessLevel = Integer.parseInt(request.getParameter("accessLevel"));
 		
-		if (remove.equals("on")) {
-			UserHandler.removeUser(loggedInUserId, userToChangeId);
-		}
-		else {
+		if (remove == null) {
 			UserHandler.modifyUser(loggedInUserId, userToChangeId, username, password, accessLevel);
 		}
-		
+		else {
+			UserHandler.removeUser(loggedInUserId, userToChangeId);
+		}
 		response.sendRedirect("/WebShop/Administration");
 	}
 
