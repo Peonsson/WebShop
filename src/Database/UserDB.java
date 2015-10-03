@@ -8,6 +8,8 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Vector;
 
+import com.mysql.jdbc.PreparedStatement;
+
 import BusinessLogic.Item;
 import BusinessLogic.User;
 
@@ -72,8 +74,22 @@ public class UserDB extends User {
 		try {
 
 			Statement stmt = conn.createStatement();
-			String query = "INSERT INTO Cart (UserId, ItemId, Quantity) VALUES (" + userId + ", " + itemId + "," + quantity + ");";
-			stmt.execute(query);
+			String query = "SELECT * FROM Cart WHERE UserId = " + userId + " AND ItemId = " + itemId;
+			ResultSet rs = stmt.executeQuery(query);
+			
+			if (rs.next()) {
+				// There was a match, update quantity of old value
+				int oldQuantity = rs.getInt("Quantity");
+				PreparedStatement update = (PreparedStatement) conn.prepareStatement("UPDATE Cart SET quantity = ? WHERE CartId = ?");
+				update.setInt(1, oldQuantity + quantity);
+				update.setInt(2, rs.getInt("CartId"));
+				update.executeUpdate();
+			}
+			else {
+				// No match, add new row to table
+				query = "INSERT INTO Cart (UserId, ItemId, Quantity) VALUES (" + userId + ", " + itemId + "," + quantity + ");";
+				stmt.execute(query);
+			}
 
 		} catch (SQLException e) {
 			e.printStackTrace();
