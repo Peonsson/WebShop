@@ -14,24 +14,11 @@ if (session.getAttribute("loggedInUser") != null) {
 }
 %>
 	<form method="post" action="LoginService">
-		<table border="1">
-			<tbody>
-				<tr>
-					<td>Username</td>
-					<td><input type="text" name="username" value="" /></td>
-				</tr>
-				<tr>
-					<td>Password</td>
-					<td><input type="password" name="password" value="" /></td>
-				</tr>
-
-				<tr>
-					<td><input type="submit" value="Login" /></td>
-				</tr>
-			</tbody>
-		</table>
+		Username
+		<input type="text" name="username" value="" />
+		Password
+		<input type="password" name="password" value="" />
+		<input type="submit" value="Login" />
 	</form>
-
-
 </body>
 </html>
