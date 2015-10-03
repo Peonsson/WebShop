@@ -61,10 +61,15 @@
 						<td>${item.price}</td>
 						<td>${item.category}</td>
 						<% if (session.getAttribute("loggedInUser") != null) { %>
-						<td><form method="post"
-								action="AddItemToCart?loggedInUser=<% out.print(session.getAttribute("loggedInUser")); %>&itemId=${item.itemId}&quantity=5">
-								<button>add</button>
+						<td>
+							<form method="post" action="AddItemToCart">
+								Add to cart: <input type="number" name="quantity" min="1" max="${item.quantity}"/>
+								
+								<input type="hidden" name="loggedInUser" value="<%out.print(session.getAttribute("loggedInUser"));%>"/>
+								<input type="hidden" name="itemId" value="${item.itemId}"/>
+								<button>Add</button>
 							</form>
+						</td>
 						<% } %>
 					</tr>
 				</c:forEach>
