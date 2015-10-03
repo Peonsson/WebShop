@@ -30,7 +30,7 @@
 			if (session.getAttribute("loggedInUser") != null) {
 		%>
 		<a class="menuButton" href="/WebShop/Settings">Settings</a> <a
-			class="menuButton" href="/WebShop/logout">Logout</a>
+			class="menuButton" href="/WebShop/Logout">Logout</a>
 		<%
 			} else {
 		%>
@@ -39,34 +39,34 @@
 			}
 		%>
 	</div>
-	
+
+	<h2>Your orders</h2>
+
 	<c:choose>
 		<c:when test="${not empty orders}">
 			<c:forEach var="order" items="${orders}">
 				Order #<c:out value="${order.orderId}"></c:out> (<c:choose>
-				<c:when test="${order.sent == 1}">Sent</c:when>
-				<c:when test="${order.sent == 0}">Not sent</c:when>
-			</c:choose>):
+					<c:when test="${order.sent == 1}">Sent</c:when>
+					<c:when test="${order.sent == 0}">Not sent</c:when>
+				</c:choose>):
 			<table>
-				<tr>
-					<td>Name</td>
-					<td>Price</td>
-					<td>Quantity</td>
-					<td>Category</td>
-				</tr>
-				<c:forEach var="item" items="${order.items}">
 					<tr>
-						<td><c:out value="${item.name}"></c:out></td>
-						<td>
-							<c:out value="${item.price * item.quantity}">asd</c:out>
-							(<c:out value="${item.price}"></c:out> each)
-						</td>
-						<td><c:out value="${item.quantity}"></c:out></td>
-						<td><c:out value="${item.category}"></c:out></td>
+						<td>Name</td>
+						<td>Price</td>
+						<td>Quantity</td>
+						<td>Category</td>
 					</tr>
-				</c:forEach>
-			</table>
-			<br />
+					<c:forEach var="item" items="${order.items}">
+						<tr>
+							<td><c:out value="${item.name}"></c:out></td>
+							<td><c:out value="${item.price * item.quantity}">asd</c:out>
+								(<c:out value="${item.price}"></c:out> each)</td>
+							<td><c:out value="${item.quantity}"></c:out></td>
+							<td><c:out value="${item.category}"></c:out></td>
+						</tr>
+					</c:forEach>
+				</table>
+				<br />
 			</c:forEach>
 		</c:when>
 		<c:when test="${empty orders}">

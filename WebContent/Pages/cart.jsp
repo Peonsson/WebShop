@@ -30,7 +30,7 @@
 			if (session.getAttribute("loggedInUser") != null) {
 		%>
 		<a class="menuButton" href="/WebShop/Settings">Settings</a> <a
-			class="menuButton" href="/WebShop/logout">Logout</a>
+			class="menuButton" href="/WebShop/Logout">Logout</a>
 		<%
 			} else {
 		%>
@@ -39,7 +39,9 @@
 			}
 		%>
 	</div>
-	
+
+	<h2>Your cart</h2>
+
 	<c:choose>
 		<c:when test="${not empty items}">
 			<table id="itemList">
@@ -49,21 +51,23 @@
 					<td>Price</td>
 				</tr>
 				<c:forEach var="item" items="${items}">
-				<tr>
-					<td>${item.name}</td>
-					<td>${item.quantity}</td>
-					<td><c:out value="${item.price * item.quantity}"></c:out>(${item.price} each)</td>
-					<td>
-						<form method="post" action="RemoveItemFromCart">
-							<input type="hidden" name="itemId" value="${item.itemId}"/>
-							<button>Remove from cart</button>
-						</form>
-					</td>
+					<tr>
+						<td>${item.name}</td>
+						<td>${item.quantity}</td>
+						<td><c:out value="${item.price * item.quantity}"></c:out>(${item.price}
+							each)</td>
+						<td>
+							<form method="post" action="RemoveItemFromCart">
+								<input type="hidden" name="itemId" value="${item.itemId}" />
+								<button>Remove from cart</button>
+							</form>
+						</td>
 					</tr>
 				</c:forEach>
 			</table>
 			<form method="post" action="Checkout">
-				<input type="hidden" name="loggedInUser" value="<%out.print(session.getAttribute("loggedInUser"));%>" />
+				<input type="hidden" name="loggedInUser"
+					value="<%out.print(session.getAttribute("loggedInUser"));%>" />
 				<button>Checkout order</button>
 			</form>
 		</c:when>

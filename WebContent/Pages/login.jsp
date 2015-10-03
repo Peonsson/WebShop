@@ -7,18 +7,41 @@
 <title>Insert title here</title>
 </head>
 <body>
+	<div id="menu">
+		<a class="menuButton" href="/WebShop/">Shop</a>
+		<%
+			if (session.getAttribute("loggedInUser") != null) {
+		%>
+		<a class="menuButton"
+			href="/WebShop/cart?userId=<%out.print(session.getAttribute("loggedInUser"));%>">Cart</a>
+		<a class="menuButton" href="/WebShop/Orders">Orders</a>
+		<%
+			}
 
-<%
-if (session.getAttribute("loggedInUser") != null) {
-	response.sendRedirect("/WebShop/browse");
-}
-%>
+			if ((session.getAttribute("accessLevel") != null)
+				&& ((int) session.getAttribute("accessLevel") > 1)) {
+		%>
+		<a class="menuButton" href="/WebShop/Administration">Administration</a>
+		<%
+			}
+
+			if (session.getAttribute("loggedInUser") != null) {
+		%>
+		<a class="menuButton" href="/WebShop/Settings">Settings</a> <a
+			class="menuButton" href="/WebShop/Logout">Logout</a>
+		<%
+			} else {
+		%>
+		<a class="menuButton" href="/WebShop/login">Login</a>
+		<%
+			}
+		%>
+	</div>
+
 	<form method="post" action="LoginService">
-		Username
-		<input type="text" name="username" value="" />
-		Password
-		<input type="password" name="password" value="" />
-		<input type="submit" value="Login" />
+		Username <input type="text" name="username" value="" /> Password <input
+			type="password" name="password" value="" /> <input type="submit"
+			value="Login" />
 	</form>
 </body>
 </html>

@@ -28,7 +28,7 @@
 			if (session.getAttribute("loggedInUser") != null) {
 		%>
 		<a class="menuButton" href="/WebShop/Settings">Settings</a> <a
-			class="menuButton" href="/WebShop/logout">Logout</a>
+			class="menuButton" href="/WebShop/Logout">Logout</a>
 		<%
 			} else {
 		%>
@@ -37,7 +37,8 @@
 			}
 		%>
 	</div>
-	Settings
+
+	<h2>Settings</h2>
 
 	<form method="post" action="ChangeSettings">
 		Password <input type="password" name="password_1" /> Repeat password

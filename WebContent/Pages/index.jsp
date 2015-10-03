@@ -9,10 +9,6 @@
 <title>Web shop</title>
 </head>
 <body>
-
-	<%-- <% request.getSession(); --%>
-	<%--  	out.println("session user id = " + session.getAttribute("loggedInUser")); %> --%>
-
 	<div class="container">
 		<div id="menu">
 			<a class="menuButton" href="/WebShop/">Shop</a>
@@ -36,7 +32,7 @@
 				if (session.getAttribute("loggedInUser") != null) {
 			%>
 			<a class="menuButton" href="/WebShop/Settings">Settings</a> <a
-				class="menuButton" href="/WebShop/logout">Logout</a>
+				class="menuButton" href="/WebShop/Logout">Logout</a>
 			<%
 				} else {
 			%>
@@ -45,9 +41,9 @@
 				}
 			%>
 		</div>
-		<br>
 
 		<div id="main">
+		<h2>Buy stuff</h2>
 			<table id="itemList">
 				<tr>
 					<td>Name</td>
