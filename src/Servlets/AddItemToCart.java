@@ -31,6 +31,8 @@ public class AddItemToCart extends HttpServlet {
 		
 		try {
 			quantity = Integer.parseInt(request.getParameter("quantity"));
+			if (quantity < 1)
+				quantity = 1;
 		}
 		// If user doesn't choose quantity when adding
 		catch (NumberFormatException nfe) {

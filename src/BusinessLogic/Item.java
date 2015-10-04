@@ -41,6 +41,11 @@ public class Item {
 	public Item() {
 	}
 
+	public Item(int itemId, int quantity) {
+		this.itemId = itemId;
+		this.quantity = quantity;
+	}
+
 	public static Collection searchByName(String name) {
 		return ItemDB.searchByName(name);
 	}

@@ -50,8 +50,8 @@ public class UserHandler {
 	public static int modifyUserAccesslevel(int myUserId, int targetUserId, int targetAccesslevel) {
 		
 		if(UserHandler.getUser(myUserId).getAccessLevel() > 2) { //If I am allowed to do this then continue; else return -1
-				UserHandler.getUser(targetUserId).setAccessLevel(targetAccesslevel);
-				return 0;
+			UserHandler.getUser(targetUserId).setAccessLevel(targetAccesslevel);
+			return 0;
 		}
 		return -1;
 	}
@@ -68,9 +68,7 @@ public class UserHandler {
 				if(tempUsername.equals(tempDatabaseUsername))
 					return -2; //if name isn't unique return -1;
 			}
-			
 			return UserDB.addUser(username, password, accessLevel); //If I got here continue; else return -1
-			
 		}
 		return -3;
 	}
@@ -101,6 +99,5 @@ public class UserHandler {
 			return UserDB.modifyUser(targetUserId, username, password, accessLevel); 		
 		}
 		return -1;
-
 	}
 }

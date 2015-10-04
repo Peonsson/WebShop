@@ -362,7 +362,7 @@ public class ItemDB extends Item {
 
 		try {
 			PreparedStatement query = (PreparedStatement) conn
-				.prepareStatement("SELECT * FROM UserOrders WHERE UserId = ?");
+				.prepareStatement("SELECT * FROM UserOrders WHERE UserId = ?"); //get all UserOrders belonging to UserId = userId
 			query.setInt(1, userId);
 			ResultSet rs = query.executeQuery();
 
@@ -501,6 +501,31 @@ public class ItemDB extends Item {
 			String query = "SELECT * FROM Cart WHERE UserId = " + myUserId;
 			ResultSet rs = stmt.executeQuery(query);
 			return rs;
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return null;
+	}
+
+	public static ArrayList<Item> getOrder(int orderId) {
+		
+		Connection conn = DBManager.getConnection();
+		
+		try {
+			
+			ArrayList<Item> myList = new ArrayList<Item>();
+			Statement stmt = conn.createStatement();
+			String query = "SELECT * FROM OrderItem WHERE UserOrderId = " + orderId;
+			ResultSet rs = stmt.executeQuery(query);
+			
+			while(rs.next()){
+				int itemId = rs.getInt("ItemId");
+				int quantity = rs.getInt("Quantity");
+				myList.add(new Item(itemId, quantity));
+			}
+			
+			return myList;
+			
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}

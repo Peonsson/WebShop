@@ -77,13 +77,14 @@ public class ItemHandler {
 		return;
 	}
 	
-	public static void dispatchOrder(int orderId, int accessLevel) {
+	public static int dispatchOrder(int myUserId, int orderId, int accessLevel) {
+		
 		// If user is a warehouse worker
 		if (accessLevel == 2) {
 			ItemDB.changeOrderStatus(orderId);
+			return 0;
 		}
-		
-		return;
+		return -1;
 	}
 	
 	public static ArrayList<Order> getUserOrders(int userId) {
@@ -91,9 +92,13 @@ public class ItemHandler {
 		return orders;
 	}
 	
-	public static ArrayList<Order> getAllUnhandledOrders() {
-		ArrayList<Order> orders = ItemDB.getAllUnhandledOrders();
-		return orders;
+	public static ArrayList<Order> getAllUnhandledOrders(int myUserId) {
+		
+		if(UserHandler.getUser(myUserId).getAccessLevel() > 1) {	//If I am allowed to do this then continue; else return -1
+			ArrayList<Order> orders = ItemDB.getAllUnhandledOrders();
+			return orders;
+		}
+		return null;
 	}
 	
 	public static int removeItemFromShop(int userId, int itemId) {

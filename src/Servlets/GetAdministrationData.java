@@ -47,7 +47,7 @@ public class GetAdministrationData extends HttpServlet {
 		}
 		else if (accessLevel == 2) {
 			// Get order list (for warehouse workers)
-			List<Order> orders = ItemHandler.getAllUnhandledOrders();
+			List<Order> orders = ItemHandler.getAllUnhandledOrders(userId);
 			request.setAttribute("orders", orders);
 		}
 

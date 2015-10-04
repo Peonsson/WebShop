@@ -30,6 +30,6 @@ public class ListShopItems extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		List<Item> items = ItemHandler.listItems();
 		request.setAttribute("items", items);
-      request.getRequestDispatcher("/Pages/index.jsp").forward(request, response);	
+      request.getRequestDispatcher("/Pages/index.jsp").forward(request, response);
 	}
 }
