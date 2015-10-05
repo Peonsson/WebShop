@@ -11,9 +11,11 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import BusinessLogic.Item;
+import BusinessLogic.ItemDTO;
 import BusinessLogic.ItemHandler;
 import BusinessLogic.Order;
 import BusinessLogic.User;
+import BusinessLogic.UserDTO;
 import BusinessLogic.UserHandler;
 
 /**
@@ -37,12 +39,12 @@ public class GetAdministrationData extends HttpServlet {
 		int accessLevel = (int) session.getAttribute("accessLevel");
 		
 		// Get item list
-		List<Item> items = ItemHandler.listItems();
+		List<ItemDTO> items = ItemHandler.listItems();
 		request.setAttribute("items", items);
 		
 		if (accessLevel > 2) {
 			// Get user list (for admins)
-			List<User> users = UserHandler.getUsers(userId);
+			List<UserDTO> users = UserHandler.getUsers(userId);
 			request.setAttribute("users", users);
 		}
 		else if (accessLevel == 2) {

@@ -25,9 +25,9 @@ public class ItemHandler {
 		return t;
 	}
 	
-	public static ArrayList<Item> listItems() {
+	public static ArrayList<ItemDTO> listItems() {
 		Collection<ItemDB> c = Item.listItems();
-		ArrayList<Item> items = new ArrayList<>();
+		ArrayList<ItemDTO> items = new ArrayList<>();
 		
 		for (Item item : c) {
 			int itemId = item.getItemId();
@@ -35,10 +35,8 @@ public class ItemHandler {
 			float price = item.getPrice();
 			int quantity = item.getQuantity();
 			String category = item.getCategory();
-			
-			items.add(new Item(itemId, name, price, quantity, category));
+			items.add(new ItemDTO(itemId, name, price, quantity, category));
 		}
-		
 		return items;
 	}
 	
@@ -53,12 +51,28 @@ public class ItemHandler {
 		return -1;
 	}
 	
-	public static Item getItem(String name) {
-		return ItemDB.getItem(name);
+	public static ItemDTO getItem(String name) {
+		
+		Item item = ItemDB.getItem(name);
+		
+		int itemId = item.getItemId();
+		String itemName = item.getName();
+		float price = item.getPrice();
+		int quantity = item.getQuantity();
+		String category = item.getCategory();
+		return new ItemDTO(itemId, itemName, price, quantity, category); 
 	}
 	
-	public static Item getItem(int itemId) {
-		return ItemDB.getItem(itemId);
+	public static ItemDTO getItem(int itemId) {
+		
+		Item item = ItemDB.getItem(itemId);
+		
+		int itemIdDTO = item.getItemId();
+		String itemName = item.getName();
+		float price = item.getPrice();
+		int quantity = item.getQuantity();
+		String category = item.getCategory();
+		return new ItemDTO(itemIdDTO, itemName, price, quantity, category); 
 	}
 	
 	public static int modifyItem(int userId, int itemId, String name, int quantity, float price, String category) {

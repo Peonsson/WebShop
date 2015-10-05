@@ -11,6 +11,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import BusinessLogic.Item;
+import BusinessLogic.ItemDTO;
 import BusinessLogic.UserHandler;
 
 /**
@@ -30,7 +31,7 @@ public class ListCart extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		HttpSession session = request.getSession();
 		int userId = (int) session.getAttribute("loggedInUser");
-		List<Item> items = UserHandler.listCartByUserId(userId);		
+		List<ItemDTO> items = UserHandler.listCartByUserId(userId);		
 		request.setAttribute("items", items);
       request.getRequestDispatcher("/Pages/cart.jsp").forward(request, response);
 	}

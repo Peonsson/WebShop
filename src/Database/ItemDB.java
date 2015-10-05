@@ -13,6 +13,7 @@ import java.sql.SQLException;
 import java.sql.Statement;
 
 import BusinessLogic.Item;
+import BusinessLogic.ItemDTO;
 import BusinessLogic.Order;
 
 public class ItemDB extends Item {
@@ -408,7 +409,7 @@ public class ItemDB extends Item {
 			// Make query for each order item belonging to order
 			query = (PreparedStatement) conn.prepareStatement("SELECT * FROM OrderItem WHERE UserOrderId = ?");
 			for (int i = 0; i < userOrderIds.size(); i++) {
-				ArrayList<Item> items = new ArrayList<>();
+				ArrayList<ItemDTO> items = new ArrayList<>();
 
 				query.setInt(1, userOrderIds.get(i));
 				rs = query.executeQuery();
@@ -436,7 +437,7 @@ public class ItemDB extends Item {
 					ResultSet rs2 = query2.executeQuery();
 					rs2.next();
 	
-					items.add(new Item(itemId, name, price, quantity, rs2.getString("Name")));
+					items.add(new ItemDTO(itemId, name, price, quantity, rs2.getString("Name")));
 				}
 
 				orders.add(new Order(userOrderIds.get(i), userId, items,sendStatusOrder.get(i)));
@@ -473,7 +474,7 @@ public class ItemDB extends Item {
 			// Make query for each order item belonging to non-sent order
 			query = (PreparedStatement) conn.prepareStatement("SELECT * FROM OrderItem WHERE UserOrderId = ?");
 			for (int i = 0; i < userOrderIds.size(); i++) {
-				ArrayList<Item> items = new ArrayList<>();
+				ArrayList<ItemDTO> items = new ArrayList<>();
 		
 				query.setInt(1, userOrderIds.get(i));
 				rs = query.executeQuery();
@@ -499,7 +500,7 @@ public class ItemDB extends Item {
 					ResultSet rs2 = query2.executeQuery();
 					rs2.next();
 		
-					items.add(new Item(itemId, name, price, quantity, rs2.getString("Name")));
+					items.add(new ItemDTO(itemId, name, price, quantity, rs2.getString("Name")));
 				}
 		
 				orders.add(new Order(userOrderIds.get(i), userIds.get(i), items, sendStatusOrder.get(i)));

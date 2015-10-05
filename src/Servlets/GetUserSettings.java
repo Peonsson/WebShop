@@ -9,6 +9,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import BusinessLogic.User;
+import BusinessLogic.UserDTO;
 import BusinessLogic.UserHandler;
 
 /**
@@ -29,7 +30,7 @@ public class GetUserSettings extends HttpServlet {
 		HttpSession session = request.getSession();
 		int userId = (int) session.getAttribute("loggedInUser");
 		
-		User user = UserHandler.getUser(userId);
+		UserDTO user = UserHandler.getUser(userId);
 		request.setAttribute("user", user);
 		request.getRequestDispatcher("/Pages/Settings.jsp").forward(request, response);
 	}

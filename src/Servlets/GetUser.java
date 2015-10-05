@@ -8,6 +8,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import BusinessLogic.User;
+import BusinessLogic.UserDTO;
 import BusinessLogic.UserHandler;
 
 /**
@@ -26,7 +27,7 @@ public class GetUser extends HttpServlet {
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		int userId = Integer.parseInt(request.getParameter("userId"));
- 		User user = UserHandler.getUser(userId);
+ 		UserDTO user = UserHandler.getUser(userId);
  		request.setAttribute("user", user);
  		request.getRequestDispatcher("/Pages/UserEditor.jsp").forward(request, response);
 	}

@@ -9,6 +9,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import BusinessLogic.Item;
+import BusinessLogic.ItemDTO;
 import BusinessLogic.ItemHandler;
 
 /**
@@ -27,7 +28,7 @@ public class GetItem extends HttpServlet {
     
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		int itemId = Integer.parseInt(request.getParameter("itemId"));
- 		Item item = ItemHandler.getItem(itemId);
+ 		ItemDTO item = ItemHandler.getItem(itemId);
  		request.setAttribute("item", item);
  		request.getRequestDispatcher("/Pages/ItemEditor.jsp").forward(request, response);
 	}

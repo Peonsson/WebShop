@@ -9,6 +9,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import BusinessLogic.User;
+import BusinessLogic.UserDTO;
 import BusinessLogic.UserHandler;
 
 /**
@@ -30,7 +31,7 @@ public class LoginService extends HttpServlet {
 		String password = request.getParameter("password");
 
 		if (!username.isEmpty() && !password.isEmpty()) {
-			User user = UserHandler.loginUser(username, password);
+			UserDTO user = UserHandler.loginUser(username, password);
 
 			if (user != null) {
 				HttpSession session = request.getSession(true);

@@ -6,17 +6,17 @@ public class Order {
 
 	private int orderId;
 	private int userId;
-	private ArrayList<Item> items;
+	private ArrayList<ItemDTO> items;
 	private int sent;
 	
-	public Order(int orderId, int userId, ArrayList<Item> items, int sent) {
+	public Order(int orderId, int userId, ArrayList<ItemDTO> items, int sent) {
 		this.orderId = orderId;
 		this.userId = userId;
 		this.items = items;
 		this.sent = sent;
 	}
 	
-	public Order(int userId, ArrayList<Item> items, int sent) {
+	public Order(int userId, ArrayList<ItemDTO> items, int sent) {
 		this.userId = userId;
 		this.items = items;
 		this.sent = sent;
@@ -42,11 +42,11 @@ public class Order {
 		this.userId = userId;
 	}
 
-	public ArrayList<Item> getItems() {
+	public ArrayList<ItemDTO> getItems() {
 		return items;
 	}
 
-	public void setItems(ArrayList<Item> items) {
+	public void setItems(ArrayList<ItemDTO> items) {
 		this.items = items;
 	}
 
