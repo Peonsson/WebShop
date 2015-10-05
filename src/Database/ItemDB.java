@@ -5,6 +5,7 @@ import java.util.Collection;
 import java.util.Vector;
 
 import com.mysql.jdbc.PreparedStatement;
+import com.mysql.jdbc.exceptions.jdbc4.MySQLIntegrityConstraintViolationException;
 
 import java.sql.Connection;
 import java.sql.ResultSet;
@@ -84,7 +85,11 @@ public class ItemDB extends Item {
 		String category = item.getCategory();
 
 		Connection conn = DBManager.getConnection();
+		
 		try {
+			// TRANSACTION START
+			conn.setAutoCommit(false);
+			
 			Statement stmt = conn.createStatement();
 			int categoryId = -1;
 
@@ -93,23 +98,22 @@ public class ItemDB extends Item {
 			ResultSet rs = stmt.executeQuery(getOrSetCategoryQuery);
 
 			if (rs.next()) { // if categoryId exists - get it; else create it
-			categoryId = rs.getInt("CategoryId");
+				categoryId = rs.getInt("CategoryId");
 
-			} else {
-
-			String createCategory = "INSERT INTO Category (Name) VALUES ('"
-					+ category + "')";
-			stmt.execute(createCategory); // create the category
-
-			String getOrSetCategoryQuery2 = "SELECT * FROM Category WHERE Name = '"
-					+ category + "'";
-			ResultSet rs3 = stmt.executeQuery(getOrSetCategoryQuery2); // get
-																		// new
-																		// categoryId
-
-			if (rs3.next()) {
-				categoryId = rs3.getInt("CategoryId");
 			}
+			// Category doesn't exist
+			else {
+				String createCategory = "INSERT INTO Category (Name) VALUES ('"
+						+ category + "')";
+				stmt.execute(createCategory); // create the category
+	
+				String getOrSetCategoryQuery2 = "SELECT * FROM Category WHERE Name = '"
+						+ category + "'";
+				ResultSet rs3 = stmt.executeQuery(getOrSetCategoryQuery2); // get new categoryId
+
+				if (rs3.next()) {
+					categoryId = rs3.getInt("CategoryId");
+				}
 			}
 
 			String query = "INSERT INTO Item (Name, Price, Quantity, Category) VALUES ('"
@@ -117,9 +121,38 @@ public class ItemDB extends Item {
 				+ ")";
 			stmt.execute(query);
 
+			conn.commit();
+			// TRANSACTION DONE
+			conn.setAutoCommit(true);
+			
 			return 0;
 
-		} catch (SQLException e) {
+		}
+		catch (MySQLIntegrityConstraintViolationException cve) {
+			System.out.println("Item name not unique.");
+			try {
+				conn.rollback();
+			}
+			catch (SQLException e) {
+				e.printStackTrace();
+			}
+			finally {
+				try {
+					conn.setAutoCommit(true);
+				}
+				catch (SQLException e) {
+					e.printStackTrace();
+				}
+			}
+			return -1;
+		}
+		catch (SQLException e) {
+			try {
+				conn.rollback();
+			} catch (SQLException e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+			}
 			e.printStackTrace();
 		}
 		return -1;
